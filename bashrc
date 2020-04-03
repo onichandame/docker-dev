@@ -95,6 +95,7 @@ alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 alias ftp='ncftp'
+alias sudo='sudo -E'
 #
 # Default to human readable figures
 # alias df='df -h'
@@ -232,3 +233,5 @@ ulimit -s unlimited
 
 # Set the TERM to fix screen issue
 export TERM=xterm-256color
+
+export SYSTEMD_EDITOR=vim
