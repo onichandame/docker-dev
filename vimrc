@@ -225,6 +225,7 @@ nmap <Leader>c :set cursorline! cursorcolumn!<CR>
 " quick save and nav shortcuts
 nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
+nmap <leader>wq :wq<CR>
 map [ <C-U>
 map ] <C-D>
 map <BS> i<BS>
