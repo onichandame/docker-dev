@@ -13,7 +13,7 @@ Plug 'dhruvasagar/vim-open-url'
 Plug 'lifepillar/vim-solarized8'
 Plug 'alvan/vim-closetag'
 Plug 'skywind3000/asyncrun.vim'
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 
 call plug#end()
 
