@@ -7,7 +7,7 @@ unlet au_file
 
 call plug#begin(stdpath('config').'/plugged')
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'sheerun/vim-polyglot'
 Plug 'dhruvasagar/vim-open-url'
 Plug 'lifepillar/vim-solarized8'
