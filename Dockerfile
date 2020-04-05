@@ -4,7 +4,8 @@ RUN yum install epel-release -y
 RUN yum update -y
 RUN yum groupinstall "Development Tools" "Development Libraries" -y
 RUN curl -sL https://rpm.nodesource.com/setup_13.x | bash -
-RUN yum install python3 neovim nodejs yarn -y
+RUN yum install python3 neovim nodejs -y
+RUN npm install -g yarn
 RUN pip3 install neovim
 RUN git config --global user.email "zxinmyth@gmail.com"
 RUN git config --global user.name "onichandame"
