@@ -3,7 +3,7 @@ FROM centos:7
 RUN yum install epel-release -y
 RUN yum update -y
 RUN yum groupinstall "Development Tools" "Development Libraries" -y
-RUN curl -sL https://rpm.nodesource.com/setup_13.x | bash -
+RUN curl -sL https://rpm.nodesource.com/setup_10.x | bash -
 RUN yum install python3 neovim nodejs -y
 RUN npm install -g yarn
 RUN pip3 install neovim
