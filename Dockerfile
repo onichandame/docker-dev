@@ -11,3 +11,6 @@ COPY bashrc /root/.bashrc
 COPY vimrc /root/.config/nvim/init.vim
 RUN curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 RUN nvim --headless +PlugInstall +qall
+WORKDIR /root/.config/coc/extensions
+RUN yarn add coc-ci coc-css coc-docker coc-eslint coc-explorer coc-json coc-markdownlint coc-pairs coc-python coc-snippets coc-tsserver coc-yaml
+WORKDIR /
