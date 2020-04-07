@@ -9,6 +9,8 @@ RUN npm install -g yarn
 RUN pip3 install neovim
 RUN git config --global user.email "zxinmyth@gmail.com"
 RUN git config --global user.name "onichandame"
+RUN git config --global credential.helper cache
+RUN git config --global credential.helper 'cache --timeout=86400'
 COPY bashrc /root/.bashrc
 COPY vimrc /root/.config/nvim/init.vim
 RUN curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
