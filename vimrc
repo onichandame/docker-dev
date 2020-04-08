@@ -193,7 +193,7 @@ set wildmenu
 set tabstop=1
 set shiftwidth=2
 set ic
-set mouse=a
+set mouse=c
 set splitbelow
 set splitright
 set cul cuc
