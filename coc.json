@@ -1,0 +1,9 @@
+{
+  "markdownlint.config": {
+    "single-title": false,
+    "single-h1": false,
+    "line_length": false,
+    "no-duplicate-header": false
+  },
+  "eslint.autoFixOnSave": true
+}
