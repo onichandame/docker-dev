@@ -1,10 +1,12 @@
 FROM centos:7
 
 RUN yum install epel-release -y
+RUN yum install https://centos7.iuscommunity.org/ius-release.rpm -y
+RUN yum remove git -y
 RUN yum update -y
 RUN yum groupinstall "Development Tools" "Development Libraries" -y
 RUN curl -sL https://rpm.nodesource.com/setup_13.x | bash -
-RUN yum install python3 neovim nodejs -y
+RUN yum install python3 neovim nodejs git2u-all -y
 RUN npm install -g yarn
 RUN pip3 install neovim
 RUN git config --global user.email "zxinmyth@gmail.com"
