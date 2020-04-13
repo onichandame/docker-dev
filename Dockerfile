@@ -7,7 +7,7 @@ RUN yum groupinstall "Development Tools" "Development Libraries" -y
 # remove git installed on the previous step for the latest git
 RUN yum remove git -y
 RUN curl -sL https://rpm.nodesource.com/setup_13.x | bash -
-RUN yum install python3 neovim nodejs git2u-all -y
+RUN yum install python3 neovim nodejs git2u-all screen -y
 RUN npm install -g yarn
 RUN pip3 install neovim
 RUN git config --global user.email "zxinmyth@gmail.com"
