@@ -2,9 +2,10 @@ FROM centos:7
 
 RUN yum install epel-release -y
 RUN yum install https://centos7.iuscommunity.org/ius-release.rpm -y
-RUN yum remove git -y
 RUN yum update -y
 RUN yum groupinstall "Development Tools" "Development Libraries" -y
+# remove git installed on the previous step for the latest git
+RUN yum remove git -y
 RUN curl -sL https://rpm.nodesource.com/setup_13.x | bash -
 RUN yum install python3 neovim nodejs git2u-all -y
 RUN npm install -g yarn
