@@ -374,6 +374,7 @@ let g:markdown_enable_spell_checking=0
 au BufRead * normal zR
 
 syntax enable
-set termguicolors
+" disable for tmux compatibility
+" set termguicolors
 set background=dark
 colorscheme solarized8
