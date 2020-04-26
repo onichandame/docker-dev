@@ -14,7 +14,7 @@ RUN git config --global credential.helper 'cache --timeout=86400'
 WORKDIR /
 RUN wget https://github.com/neovim/neovim/releases/download/v0.4.3/nvim.appimage
 RUN chmod u+x nvim.appimage
-RUN bash /nvim.appimage
+RUN /nvim.appimage
 RUN rm /nvim.appimage
 COPY bashrc /root/.bashrc
 COPY vimrc /root/.config/nvim/init.vim
