@@ -2,7 +2,7 @@ FROM centos:8
 
 RUN dnf install epel-release -y
 RUN dnf update -y
-RUN dnf groupinstall "Development Tools" "Development Libraries" -y
+RUN dnf groupinstall "Development Tools" -y
 RUN curl -sL https://rpm.nodesource.com/setup_14.x | bash -
 RUN dnf install python3 neovim nodejs git2u-all tmux mlocate -y
 RUN npm install -g yarn
