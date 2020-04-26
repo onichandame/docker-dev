@@ -4,7 +4,7 @@ RUN dnf install epel-release -y
 RUN dnf update -y
 RUN dnf groupinstall "Development Tools" -y
 RUN curl -sL https://rpm.nodesource.com/setup_14.x | bash -
-RUN dnf install python3 nodejs tmux mlocate wget -y
+RUN dnf install rsync python3 nodejs tmux mlocate wget -y
 RUN npm install -g yarn
 RUN pip3 install neovim
 RUN git config --global user.email "zxinmyth@gmail.com"
@@ -14,8 +14,9 @@ RUN git config --global credential.helper 'cache --timeout=86400'
 WORKDIR /
 RUN wget https://github.com/neovim/neovim/releases/download/v0.4.3/nvim.appimage
 RUN chmod u+x nvim.appimage
-RUN /nvim.appimage
-RUN rm /nvim.appimage
+RUN /nvim.appimage --appimage-extract
+RUN rsync -a /squashfs-root/usr/ /usr/
+RUN rm -rf /nvim.appimage /squashfs-root
 COPY bashrc /root/.bashrc
 COPY vimrc /root/.config/nvim/init.vim
 COPY coc.json /root/.config/nvim/coc-settings.json
