@@ -4,7 +4,7 @@ RUN dnf install epel-release -y
 RUN dnf update -y
 RUN dnf groupinstall "Development Tools" -y
 RUN curl -sL https://rpm.nodesource.com/setup_14.x | bash -
-RUN dnf install python3 nodejs tmux mlocate -y
+RUN dnf install python3 nodejs tmux mlocate wget -y
 RUN npm install -g yarn
 RUN pip3 install neovim
 RUN git config --global user.email "zxinmyth@gmail.com"
