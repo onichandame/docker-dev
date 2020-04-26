@@ -1,13 +1,10 @@
-FROM centos:7
+FROM centos:8
 
-RUN yum install epel-release -y
-RUN yum install https://centos7.iuscommunity.org/ius-release.rpm -y
-RUN yum update -y
-RUN yum groupinstall "Development Tools" "Development Libraries" -y
-# remove git installed on the previous step for the latest git
-RUN yum remove git -y
+RUN dnf install epel-release -y
+RUN dnf update -y
+RUN dnf groupinstall "Development Tools" "Development Libraries" -y
 RUN curl -sL https://rpm.nodesource.com/setup_14.x | bash -
-RUN yum install python3 neovim nodejs git2u-all tmux mlocate -y
+RUN dnf install python3 neovim nodejs git2u-all tmux mlocate -y
 RUN npm install -g yarn
 RUN pip3 install neovim
 RUN git config --global user.email "zxinmyth@gmail.com"
