@@ -19,6 +19,7 @@ RUN rsync -a /squashfs-root/usr/ /usr/
 RUN rm -rf /nvim.appimage /squashfs-root
 COPY bashrc /root/.bashrc
 COPY vimrc /root/.config/nvim/init.vim
+COPY tmux.conf /root/.tmux.conf
 COPY coc.json /root/.config/nvim/coc-settings.json
 RUN curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 RUN nvim --headless +PlugInstall +qall
