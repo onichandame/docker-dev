@@ -6,7 +6,7 @@ RUN dnf config-manager --enable PowerTools
 RUN dnf config-manager --set-enabled PowerTools
 RUN dnf update -y
 RUN curl -sL https://rpm.nodesource.com/setup_14.x | bash -
-RUN dnf install mesa-libGL telnet rsync python3 nodejs tmux mlocate wget xorg-x11-apps chromium -y
+RUN dnf install mesa-libGL telnet rsync python3 nodejs tmux mlocate wget -y
 RUN npm install -g yarn
 RUN pip3 install neovim
 RUN git config --global user.email "zxinmyth@gmail.com"
