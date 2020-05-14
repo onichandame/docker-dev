@@ -6,7 +6,7 @@ RUN dnf config-manager --enable PowerTools
 RUN dnf config-manager --set-enabled PowerTools
 RUN dnf update -y
 RUN curl -sL https://rpm.nodesource.com/setup_14.x | bash -
-RUN dnf install python3 nodejs tmux mlocate wget golang -y
+RUN dnf install rsync python3 nodejs tmux mlocate wget golang -y
 RUN npm install -g yarn
 RUN pip3 install neovim
 RUN git config --global user.email "zxinmyth@gmail.com"
