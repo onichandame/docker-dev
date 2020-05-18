@@ -231,7 +231,7 @@ export ZIPINFO="-O CP936"
 # Increase the stacksize 
 ulimit -s unlimited
 # Increase the open file limit
-ulimit -n 3253577
+ulimit -n 65536
 
 # Set the TERM to fix screen issue
 export TERM=xterm-256color
