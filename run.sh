@@ -22,7 +22,7 @@ function install_node(){
 
 function install_deno(){
   cd /
-  curl -sL https://rpm.nodesource.com/setup_14.x | bash -
+  curl -fsSL https://deno.land/x/install/install.sh | sh
 }
 
 function install_neovim(){
