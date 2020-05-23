@@ -23,5 +23,7 @@ rsync -a /squashfs-root/usr/ /usr/
 rm -rf /nvim.appimage /squashfs-root
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 nvim --headless +PlugInstall +qall
-cd /root/.config/coc/extensions
+
+mkdir -p $HOME/.config/coc/extensions
+cd $HOME/.config/coc/extensions
 yarn add coc-ci coc-css coc-docker coc-explorer coc-json coc-markdownlint coc-pairs coc-python coc-snippets coc-tsserver coc-yaml coc-prettier
