@@ -5,6 +5,7 @@ RUN dnf groupinstall "Development Tools" -y
 RUN dnf config-manager --enable PowerTools
 RUN dnf config-manager --set-enabled PowerTools
 RUN dnf update -y
+RUN curl -fsSL https://deno.land/x/install/install.sh | sh
 RUN curl -sL https://rpm.nodesource.com/setup_14.x | bash -
 RUN dnf install rsync python3 nodejs tmux mlocate wget libpng-devel golang -y
 RUN npm install -g yarn
