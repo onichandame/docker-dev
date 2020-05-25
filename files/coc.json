@@ -3,8 +3,15 @@
     "single-title": false,
     "single-h1": false,
     "line_length": false,
+    "no-inline-html": false,
     "no-duplicate-header": false
   },
   "prettier.eslintIntegration": true,
-  "coc.preferences.formatOnSaveFiletypes": ["javascript", "javascriptreact", "typescript", "typescriptreact", "json"]
+  "coc.preferences.formatOnSaveFiletypes": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "json"
+  ]
 }
