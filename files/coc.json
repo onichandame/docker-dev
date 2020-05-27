@@ -1,5 +1,6 @@
 {
   "markdownlint.config": {
+    "first-line-heading": false,
     "single-title": false,
     "single-h1": false,
     "line_length": false,
