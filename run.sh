@@ -3,7 +3,7 @@ function install_tools(){
   cd /
   dnf install epel-release -y
   dnf update -y
-  dnf install python3 tmux mlocate wget golang glibc-langpack-zh -y
+  dnf install python3 tmux mlocate wget golang glibc-langpack-zh telnet -y
   cp /files/bashrc $HOME/.bashrc
   cp /files/tmux.conf $HOME/.tmux.conf
 }
