@@ -18,6 +18,7 @@ function install_node(){
   curl -sL https://rpm.nodesource.com/setup_14.x | bash -
   dnf install nodejs -y
   npm install -g yarn
+  yarn global add tsdx # add tsdx as npx tsdx fails
 }
 
 function install_deno(){
