@@ -8,7 +8,6 @@
     "no-inline-html": false,
     "no-duplicate-header": false
   },
-  "prettier.eslintIntegration": true,
   "coc.preferences.formatOnSaveFiletypes": [
     "javascript",
     "javascriptreact",
