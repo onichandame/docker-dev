@@ -3,7 +3,7 @@ function install_tools(){
   cd /
   dnf install epel-release -y
   dnf update -y
-  dnf install python3 tmux mlocate wget golang glibc-langpack-zh telnet which -y
+  dnf install python3 tmux mlocate wget golang glibc-langpack-zh telnet which cmake -y
   cp /files/bashrc $HOME/.bashrc
   cp /files/tmux.conf $HOME/.tmux.conf
 }
@@ -41,7 +41,7 @@ function install_neovim(){
   nvim --headless +PlugInstall +qall
   mkdir -p $HOME/.config/coc/extensions
   cd $HOME/.config/coc/extensions
-  yarn add coc-ci coc-css coc-docker coc-explorer coc-json coc-markdownlint coc-pairs coc-python coc-snippets coc-tsserver coc-yaml coc-prettier # coc-deno
+  yarn add coc-ci coc-css coc-docker coc-explorer coc-json coc-markdownlint coc-pairs coc-python coc-snippets coc-tsserver coc-yaml coc-prettier coc-cmake # coc-deno
   mkdir $HOME/.config/nvim
   cp /files/coc.json $HOME/.config/nvim/coc-settings.json
 }
