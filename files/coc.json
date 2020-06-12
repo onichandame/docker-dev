@@ -8,6 +8,7 @@
     "no-inline-html": false,
     "no-duplicate-header": false
   },
+  "python.jediEnabled": false,
   "coc.preferences.formatOnSaveFiletypes": [
     "javascript",
     "javascriptreact",
