@@ -16,6 +16,7 @@ function install_tools(){
 
 function install_devtools(){
   cd /
+  rm -rf /var/cache/dnf
   dnf groupinstall "Development Tools" -y
 }
 
