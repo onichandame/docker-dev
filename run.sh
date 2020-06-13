@@ -3,7 +3,7 @@ function install_tools(){
   cd /
   dnf install epel-release -y
   dnf update -y
-  dnf install python3 tmux mlocate wget golang glibc-langpack-zh telnet which cmake clang-tools-extra -y
+  dnf install tmux mlocate wget golang glibc-langpack-zh telnet which cmake clang-tools-extra -y
   cp /files/bashrc $HOME/.bashrc
   cp /files/tmux.conf $HOME/.tmux.conf
 }
@@ -11,6 +11,15 @@ function install_tools(){
 function install_devtools(){
   cd /
   dnf groupinstall "Development Tools" -y
+}
+
+function install_python(){
+  dnf install bzip2-devel libffi-devel
+  wget https://www.python.org/ftp/python/3.8.3/Python-3.8.3.tgz
+  tar -zxf Python-3.8.3.tgz
+  cd Python-3.8.3
+  ./configure --enable-optimizations
+  make altinstall
 }
 
 function install_node(){
@@ -56,6 +65,7 @@ function install_git(){
 
 install_tools
 install_devtools
+install_python
 install_git
 install_node
 install_deno
