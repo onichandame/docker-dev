@@ -1,8 +1,14 @@
 #!/bin/bash
-function install_tools(){
+function install_basic(){
   cd /
   dnf install epel-release -y
+  rm -rf /var/cache/dnf
   dnf update -y
+}
+
+function install_tools(){
+  cd /
+  rm -rf /var/cache/dnf
   dnf install tmux mlocate wget golang glibc-langpack-zh telnet which cmake clang-tools-extra -y
   cp /files/bashrc $HOME/.bashrc
   cp /files/tmux.conf $HOME/.tmux.conf
@@ -14,12 +20,16 @@ function install_devtools(){
 }
 
 function install_python(){
-  dnf install bzip2-devel libffi-devel
+  cd /
+  rm -rf /var/cache/dnf
+  dnf install bzip2-devel libffi-devel wget -y
   wget https://www.python.org/ftp/python/3.8.3/Python-3.8.3.tgz
   tar -zxf Python-3.8.3.tgz
   cd Python-3.8.3
   ./configure --enable-optimizations
   make altinstall
+  cd -
+  rm -rf Python-3.8.3*
 }
 
 function install_node(){
@@ -63,6 +73,7 @@ function install_git(){
   git config --global credential.helper 'cache --timeout=86400'
 }
 
+install_basic
 install_tools
 install_devtools
 install_python
