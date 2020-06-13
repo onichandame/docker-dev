@@ -9,7 +9,7 @@ function install_basic(){
 function install_tools(){
   cd /
   rm -rf /var/cache/dnf
-  dnf install tmux mlocate wget glibc-langpack-zh telnet which cmake clang-tools-extra -y
+  dnf install python3 tmux mlocate wget glibc-langpack-zh telnet which cmake clang-tools-extra -y
   cp /files/bashrc $HOME/.bashrc
   cp /files/tmux.conf $HOME/.tmux.conf
 }
@@ -24,11 +24,14 @@ function install_python(){
   cd /
   rm -rf /var/cache/dnf
   dnf install bzip2-devel libffi-devel wget zlib-devel -y
+  dnf remove python3 -y
   wget https://www.python.org/ftp/python/3.8.3/Python-3.8.3.tgz
   tar -zxf Python-3.8.3.tgz
   cd Python-3.8.3
   ./configure --enable-optimizations
   make altinstall -sj
+  ln -s /usr/local/bin/python3.8 /usr/local/bin/python3
+  ln -s /usr/local/bin/pip3.8 /usr/local/bin/pip3
   cd -
   rm -rf Python-3.8.3*
 }
