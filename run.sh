@@ -9,7 +9,7 @@ function install_basic(){
 function install_tools(){
   cd /
   rm -rf /var/cache/dnf
-  dnf install tmux mlocate wget golang glibc-langpack-zh telnet which cmake clang-tools-extra -y
+  dnf install tmux mlocate wget glibc-langpack-zh telnet which cmake clang-tools-extra -y
   cp /files/bashrc $HOME/.bashrc
   cp /files/tmux.conf $HOME/.tmux.conf
 }
