@@ -28,7 +28,7 @@ function install_python(){
   tar -zxf Python-3.8.3.tgz
   cd Python-3.8.3
   ./configure --enable-optimizations
-  make altinstall
+  make altinstall -sj
   cd -
   rm -rf Python-3.8.3*
 }
