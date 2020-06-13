@@ -51,7 +51,7 @@ function install_deno(){
 
 function install_neovim(){
   cd /
-  dnf install python3 rsync libpng-devel -y
+  dnf install rsync libpng-devel -y
   pip3 install neovim
   wget https://github.com/neovim/neovim/releases/download/v0.4.3/nvim.appimage
   chmod u+x nvim.appimage
