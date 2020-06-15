@@ -1,5 +1,5 @@
 # no-epics
-FROM centos:8
+# FROM centos:8
 # epics
 FROM onichandame/epics:3.15.7
 
