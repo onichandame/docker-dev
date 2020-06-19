@@ -23,7 +23,7 @@ function install_devtools(){
 function install_python(){
   cd /
   rm -rf /var/cache/dnf
-  dnf install bzip2-devel libffi-devel wget zlib-devel openssl-devel -y
+  dnf install bzip2-devel libffi-devel wget zlib-devel openssl-devel readline-devel sqlite-devel -y
   dnf remove python3 -y
   wget https://www.python.org/ftp/python/3.8.3/Python-3.8.3.tgz
   tar -zxf Python-3.8.3.tgz
