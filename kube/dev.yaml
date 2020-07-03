@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: dev
+spec:
+  selector:
+    matchLabels:
+      app: dev # has to match .spec.template.metadata.labels
+  serviceName: "dev"
+  replicas: 1 # by default is 1
+  template:
+    metadata:
+      labels:
+        app: dev # has to match .spec.selector.matchLabels
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+      - name: dev
+        image: "onichandame/docker-dev:latest"
+        ports:
+        - containerPort: 3000
+          name: dev-port
+        volumeMounts:
+        - mountPath: /git
+          name: git-storage
+        env:
+          - name: GIT_USER_NAME
+            value: "onichandame"
+          - name: GIT_USER_EMAIL
+            value: "zxinmyth@gmail.com"
+  volumeClaimTemplates:
+  - metadata:
+      name: git-storage
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "git-storage"
+      resources:
+        requests:
+          storage: 500Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dev
+spec:
+  ports:
+  - name: dev
+    port: 30000
+    targetPort: 3000
+  selector:
+    app: dev
+  type: LoadBalancer

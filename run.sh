@@ -71,8 +71,6 @@ function install_neovim(){
 
 function install_git(){
   dnf install git -y
-  git config --global user.email "zxinmyth@gmail.com"
-  git config --global user.name "onichandame"
   git config --global credential.helper cache
   git config --global credential.helper 'cache --timeout=86400'
 }
