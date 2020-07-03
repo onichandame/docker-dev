@@ -1,43 +1,3 @@
-apiVersion: apps/v1
-kind: StatefulSet
-metadata:
-  name: dev
-spec:
-  selector:
-    matchLabels:
-      app: dev # has to match .spec.template.metadata.labels
-  serviceName: "dev"
-  replicas: 1 # by default is 1
-  template:
-    metadata:
-      labels:
-        app: dev # has to match .spec.selector.matchLabels
-    spec:
-      terminationGracePeriodSeconds: 0
-      containers:
-      - name: dev
-        image: "onichandame/docker-dev:latest"
-        ports:
-        - containerPort: 3000
-          name: dev-port
-        volumeMounts:
-        - mountPath: /git
-          name: git-storage
-        env:
-          - name: GIT_USER_NAME
-            value: "onichandame"
-          - name: GIT_USER_EMAIL
-            value: "zxinmyth@gmail.com"
-  volumeClaimTemplates:
-  - metadata:
-      name: git-storage
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      storageClassName: "git-storage"
-      resources:
-        requests:
-          storage: 500Gi
----
 apiVersion: v1
 kind: Service
 metadata:
@@ -50,3 +10,72 @@ spec:
   selector:
     app: dev
   type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: dev
+spec:
+  selector:
+    matchLabels:
+      app: dev
+  serviceName: "dev"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: dev
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: dev
+        image: "onichandame/docker-dev:latest"
+        ports:
+        - containerPort: 3000
+          name: dev-port
+        volumeMounts:
+        - mountPath: /git
+          name: git-claim
+        env:
+          - name: GIT_USER_NAME
+            value: "onichandame"
+          - name: GIT_USER_EMAIL
+            value: "zxinmyth@gmail.com"
+  volumeClaimTemplates:
+  - metadata:
+      name: git-claim
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: local-storage
+      resources:
+        requests:
+          storage: 500Gi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: git-storage
+spec:
+  capacity:
+    storage: 500Gi
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage
+  local:
+    path: /hosthome/xiao/git # match the directory containing all your workspaces
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - minikube # match the name of the node where files reside
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: local-storage
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
