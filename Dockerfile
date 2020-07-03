@@ -10,3 +10,5 @@ RUN rm /run.sh
 RUN rm -rf /files
 
 WORKDIR /
+
+ENTRYPOINT ["tail", "-f", "/dev/null"]
