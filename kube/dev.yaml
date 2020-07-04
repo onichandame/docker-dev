@@ -36,7 +36,7 @@ spec:
         - containerPort: 3000
           name: dev-port
         volumeMounts:
-        - mountPath: /git
+        - mountPath: /git # mount your workspaces here
           name: git-claim
         env:
           - name: GIT_USER_NAME
