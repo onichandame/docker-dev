@@ -1,3 +1,5 @@
+# deploy a fully functional development environment as a statefulset
+# check https://github.com/onichandame/docker-dev for docs
 apiVersion: v1
 kind: Service
 metadata:

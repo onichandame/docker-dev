@@ -1,0 +1,32 @@
+# deploy a ddns(QCloud) service that updates the public IP of the cluster every minute. Tweak it to meet your requirements
+# check https://github.com/onichandame/qcloud-ddns for docs
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ddns
+  labels:
+    app: ddns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ddns
+  template:
+    metadata:
+      labels:
+        app: ddns
+    spec:
+      containers:
+      - name: ddns
+        image: onichandame/qcloud-ddns:latest
+        env:
+          - name: RECORD_ID
+            value: "<the record id>"
+          - name: DOMAIN
+            value: "<the domain>"
+          - name: SUBDOMAIN
+            value: "<the subdomain>"
+          - name: SECRET_ID
+            value: "<the secret id>"
+          - name: SECRET_KEY
+            value: "<the secret key>"
