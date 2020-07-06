@@ -1,38 +1,39 @@
-# deploy a nats server for development purpose
+# deploy a soft IOC for development purpose.
 apiVersion: v1
 kind: Service
 metadata:
-  name: nats
+  name: epics
 spec:
   ports:
-  - name: nats
-    port: 4222
-    targetPort: 4222
+  - name: epics
+    port: 5064
+    targetPort: 5064
   selector:
-    app: nats
+    app: epics
   type: ClusterIP
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nats
+  name: epics
   labels:
-    app: nats
+    app: epics
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: nats
+      app: epics
   template:
     metadata:
       labels:
-        app: nats
+        app: epics
     spec:
       containers:
-      - name: nats
-        image: nats:alpine
+      - name: epics
+        image: onichandame/epics:example
+        tty: true
         ports:
-          - containerPort: 4222
+          - containerPort: 5064
             name: default-port
         readinessProbe:
           tcpSocket:
