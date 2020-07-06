@@ -52,7 +52,7 @@ function install_deno(){
 function install_neovim(){
   cd /
   dnf install rsync libpng-devel -y
-  pip3 install neovim jedi pep8 conan
+  pip3 install neovim jedi flake8 conan
   wget https://github.com/neovim/neovim/releases/download/v0.4.3/nvim.appimage
   chmod u+x nvim.appimage
   /nvim.appimage --appimage-extract
