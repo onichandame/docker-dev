@@ -38,7 +38,7 @@ function install_python(){
 
 function install_node(){
   cd /
-  curl -sL https://rpm.nodesource.com/setup_12.x | bash -
+  curl -sL https://rpm.nodesource.com/setup_14.x | bash -
   dnf install nodejs -y
   npm install -g yarn
   yarn global add tsdx # add tsdx as npx tsdx fails
