@@ -7,7 +7,7 @@ function install_basic(){
 
 function install_tools(){
   cd /
-  apk add python3 py3-pip tmux mlocate musl-locales cmake clang-extra-tools htop curl shadow
+  apk add python3 python3-dev py3-pip tmux mlocate musl-locales cmake clang-extra-tools htop curl
   cp /files/bashrc $HOME/.bashrc
   cp /files/tmux.conf $HOME/.tmux.conf
 }
