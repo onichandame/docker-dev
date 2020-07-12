@@ -7,7 +7,7 @@ function install_basic(){
 
 function install_tools(){
   cd /
-  apk add python3 py3-pip tmux bash mlocate musl-locale cmake clang-extra-tools htop curl
+  apk add python3 py3-pip tmux bash mlocate musl-locales cmake clang-extra-tools htop curl
   cp /files/bashrc $HOME/.bashrc
   cp /files/tmux.conf $HOME/.tmux.conf
 }
@@ -40,7 +40,7 @@ function install_neovim(){
 }
 
 function install_git(){
-  apk add git -y
+  apk add git
   git config --global credential.helper cache
   git config --global credential.helper 'cache --timeout=86400'
 }
