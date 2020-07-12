@@ -1,5 +1,5 @@
-FROM alpine:3
-# FROM onichandame/epics:dev-3.15.8
+#FROM alpine:3
+FROM hayd/alpine-deno:1.1.3
 
 COPY ./files /files
 ADD run.sh /run.sh
