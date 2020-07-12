@@ -3,7 +3,7 @@ FROM alpine:3
 
 COPY ./files /files
 ADD run.sh /run.sh
-RUN /run.sh
+RUN sh /run.sh
 RUN rm /run.sh
 RUN rm -rf /files
 
