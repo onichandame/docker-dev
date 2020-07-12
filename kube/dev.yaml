@@ -32,6 +32,7 @@ spec:
       containers:
       - name: dev
         image: "onichandame/docker-dev:latest"
+        imagePullPolicy: Always
         ports:
         - containerPort: 3000
           name: dev-port
