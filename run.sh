@@ -75,6 +75,16 @@ function install_git(){
   git config --global credential.helper 'cache --timeout=86400'
 }
 
+function install_proxychains(){
+  cd /
+  git clone https://github.com/rofl0r/proxychains-ng.git proxychains --depth 1
+  cd proxychains
+  ./configure --prefix=/usr --sysconfdir=/etc
+  make
+  make install
+  make install-config
+}
+
 install_basic
 install_tools
 install_devtools
