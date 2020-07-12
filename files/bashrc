@@ -218,8 +218,8 @@ export UNZIP="-O CP936"
 export ZIPINFO="-O CP936"
 
 # chinese character in tmux
-export LANG="zh_CN.UTF-8"
-export LC_ALL="zh_CN.UTF-8"
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
 
 # The next line updates PATH for the Google Cloud SDK.
 # if [ -f '/home/xiao/Programs/google-cloud-sdk/path.bash.inc' ]; then . '/home/xiao/Programs/google-cloud-sdk/path.bash.inc'; fi
