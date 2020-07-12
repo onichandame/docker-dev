@@ -6,6 +6,7 @@ ADD run.sh /run.sh
 RUN sh /run.sh
 RUN rm /run.sh
 RUN rm -rf /files
+ENV ENV /root/.bashrc
 
 WORKDIR /
 
