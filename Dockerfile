@@ -1,4 +1,4 @@
-FROM centos:8
+FROM alpine:3
 # FROM onichandame/epics:dev-3.15.8
 
 COPY ./files /files
