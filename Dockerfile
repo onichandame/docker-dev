@@ -13,4 +13,4 @@ ENV ENV /root/.bashrc
 
 WORKDIR /
 
-ENTRYPOINT ["tail", "-f", "/dev/null"]
+ENTRYPOINT ["ash"]
