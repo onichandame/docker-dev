@@ -28,7 +28,7 @@ spec:
       labels:
         app: dev
     spec:
-      terminationGracePeriodSeconds: 10
+      terminationGracePeriodSeconds: 0
       containers:
       - name: dev
         image: "onichandame/docker-dev:latest"
