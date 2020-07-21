@@ -11,4 +11,4 @@ RUN rm -rf /files
 
 WORKDIR /
 
-ENTRYPOINT "bash"
+ENTRYPOINT ["bash"]
