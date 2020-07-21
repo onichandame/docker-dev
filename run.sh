@@ -7,7 +7,7 @@ function install_basic(){
 
 function install_tools(){
   cd /
-  apk add python3 python3-dev py3-pip tmux mlocate musl-locales cmake clang-extra-tools htop curl tsocks openssh libpng-dev bash lcms2-dev
+  apk add python3 python3-dev py3-pip tmux mlocate musl-locales cmake clang-extra-tools htop curl tsocks openssh libpng-dev bash lcms2-dev go
   cp /files/bashrc $HOME/.bashrc
   cp /files/tmux.conf $HOME/.tmux.conf
   cp /files/tsocks.conf /etc/tsocks.conf
@@ -36,7 +36,7 @@ function install_neovim(){
   nvim --headless +PlugInstall +qall
   mkdir -p $HOME/.config/coc/extensions
   cd $HOME/.config/coc/extensions
-  yarn add coc-ci coc-css coc-docker coc-explorer coc-json coc-markdownlint coc-pairs coc-python coc-snippets coc-tsserver coc-yaml coc-eslint coc-cmake coc-clangd # coc-deno
+  yarn add coc-ci coc-css coc-docker coc-explorer coc-json coc-markdownlint coc-pairs coc-python coc-snippets coc-tsserver coc-yaml coc-eslint coc-cmake coc-clangd coc-go # coc-deno
   cp /files/coc.json $HOME/.config/nvim/coc-settings.json
 }
 
