@@ -245,3 +245,6 @@ export SYSTEMD_EDITOR=vim
 # Set git user info
 git config --global user.email "$GIT_USER_EMAIL"
 git config --global user.name "$GIT_USER_NAME"
+
+# go proxy in china
+go env -w GOPROXY=https://goproxy.cn,direct
