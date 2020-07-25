@@ -7,10 +7,9 @@ function install_basic(){
 
 function install_tools(){
   cd /
-  apk add python3 python3-dev py3-pip tmux mlocate musl-locales cmake clang-extra-tools htop curl tsocks openssh libpng-dev bash lcms2-dev go
+  apk add python3 python3-dev py3-pip tmux mlocate musl-locales cmake clang-extra-tools htop curl openssh libpng-dev bash lcms2-dev go
   cp /files/bashrc $HOME/.bashrc
   cp /files/tmux.conf $HOME/.tmux.conf
-  cp /files/tsocks.conf /etc/tsocks.conf
 }
 
 function install_devtools(){
@@ -44,6 +43,10 @@ function install_git(){
   apk add git
   git config --global credential.helper cache
   git config --global credential.helper 'cache --timeout=86400'
+}
+
+function install_proxy(){
+  go get github.com/onichandame/proxify
 }
 
 install_basic
