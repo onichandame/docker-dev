@@ -55,3 +55,4 @@ install_devtools
 install_git
 install_node
 install_neovim
+install_proxy
