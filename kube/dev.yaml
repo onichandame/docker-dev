@@ -33,7 +33,6 @@ spec:
       - name: dev
         image: "onichandame/docker-dev:latest"
         imagePullPolicy: Always
-        tty: true
         ports:
         - containerPort: 3000
           name: dev-port
@@ -45,6 +44,10 @@ spec:
             value: "onichandame"
           - name: GIT_USER_EMAIL
             value: "zxinmyth@gmail.com"
+          - name: PROXY_SERVER_ADDR
+            value: "<your proxy server addr>"
+          - name: PROXY_SERVER_PORT
+            value: "<your proxy server port>"
   volumeClaimTemplates:
   - metadata:
       name: git-claim

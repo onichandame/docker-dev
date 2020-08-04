@@ -1,95 +1,58 @@
-#!/bin/bash
+#!/bin/sh
 function install_basic(){
   cd /
-  dnf install epel-release -y
-  rm -rf /var/cache/dnf
-  dnf update -y
+  apk update
+  apk add busybox-extras
 }
 
 function install_tools(){
   cd /
-  rm -rf /var/cache/dnf
-  dnf install python3 tmux mlocate wget glibc-langpack-zh telnet which cmake clang-tools-extra htop iptraf-ng -y
+  apk add python3 python3-dev py3-pip tmux mlocate musl-locales cmake clang-extra-tools htop curl openssh libpng-dev bash lcms2-dev go
   cp /files/bashrc $HOME/.bashrc
   cp /files/tmux.conf $HOME/.tmux.conf
 }
 
 function install_devtools(){
-  cd /
-  rm -rf /var/cache/dnf
-  dnf groupinstall "Development Tools" -y
-}
-
-function install_python(){
-  cd /
-  rm -rf /var/cache/dnf
-  dnf install bzip2-devel libffi-devel wget zlib-devel openssl-devel readline-devel sqlite-devel -y
-  dnf remove python3 -y
-  wget https://www.python.org/ftp/python/3.8.3/Python-3.8.3.tgz
-  tar -zxf Python-3.8.3.tgz
-  cd Python-3.8.3
-  ./configure --enable-optimizations
-  make altinstall -sj
-  ln -s /usr/local/bin/python3.8 /usr/local/bin/python3
-  ln -s /usr/local/bin/pip3.8 /usr/local/bin/pip3
-  cd -
-  rm -rf Python-3.8.3*
+  apk add gcc g++ make
 }
 
 function install_node(){
-  cd /
-  curl -sL https://rpm.nodesource.com/setup_12.x | bash -
-  dnf install nodejs -y
-  npm install -g yarn
+  apk add nodejs npm yarn
   yarn global add tsdx # add tsdx as npx tsdx fails
 }
 
-function install_deno(){
-  cd /
-  curl -fsSL https://deno.land/x/install/install.sh | sh
-}
+# deno does not support musl yet
+#function install_deno(){
+#  curl -fsSL https://deno.land/x/install/install.sh | sh
+#}
 
 function install_neovim(){
-  cd /
-  dnf install rsync libpng-devel -y
+  apk add neovim
   pip3 install neovim jedi pylama conan
-  wget https://github.com/neovim/neovim/releases/download/v0.4.3/nvim.appimage
-  chmod u+x nvim.appimage
-  /nvim.appimage --appimage-extract
-  rsync -a /squashfs-root/usr/ /usr/
-  rm -rf /nvim.appimage /squashfs-root
   mkdir -p $HOME/.config/nvim
   cp /files/vimrc $HOME/.config/nvim/init.vim
   curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   nvim --headless +PlugInstall +qall
   mkdir -p $HOME/.config/coc/extensions
   cd $HOME/.config/coc/extensions
-  yarn add coc-ci coc-css coc-docker coc-explorer coc-json coc-markdownlint coc-pairs coc-python coc-snippets coc-tsserver coc-yaml coc-prettier coc-cmake coc-clangd # coc-deno
-  mkdir $HOME/.config/nvim
+  yarn add coc-ci coc-css coc-docker coc-explorer coc-json coc-markdownlint coc-pairs coc-python coc-snippets coc-tsserver coc-yaml coc-tslint coc-cmake coc-clangd coc-go # coc-deno
   cp /files/coc.json $HOME/.config/nvim/coc-settings.json
 }
 
 function install_git(){
-  dnf install git -y
+  apk add git
   git config --global credential.helper cache
   git config --global credential.helper 'cache --timeout=86400'
 }
 
-function install_proxychains(){
-  cd /
-  git clone https://github.com/rofl0r/proxychains-ng.git proxychains --depth 1
-  cd proxychains
-  ./configure --prefix=/usr --sysconfdir=/etc
-  make
-  make install
-  make install-config
+function install_proxy(){
+  go get github.com/onichandame/proxify
 }
 
 install_basic
 install_tools
 install_devtools
-install_python
 install_git
 install_node
-install_deno
 install_neovim
+install_proxy

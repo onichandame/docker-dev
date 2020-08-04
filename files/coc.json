@@ -8,11 +8,13 @@
     "no-inline-html": false,
     "no-duplicate-header": false
   },
+  "tslint.autoFixOnSave": true,
   "coc.preferences.formatOnSaveFiletypes": [
     "javascript",
     "javascriptreact",
     "typescript",
     "typescriptreact",
-    "json"
+    "json",
+    "go"
   ]
 }
