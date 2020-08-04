@@ -35,7 +35,7 @@ function install_neovim(){
   nvim --headless +PlugInstall +qall
   mkdir -p $HOME/.config/coc/extensions
   cd $HOME/.config/coc/extensions
-  yarn add coc-ci coc-css coc-docker coc-explorer coc-json coc-markdownlint coc-pairs coc-python coc-snippets coc-tsserver coc-yaml coc-prettier coc-cmake coc-clangd coc-go # coc-deno
+  yarn add coc-ci coc-css coc-docker coc-explorer coc-json coc-markdownlint coc-pairs coc-python coc-snippets coc-tsserver coc-yaml coc-tslint coc-cmake coc-clangd coc-go # coc-deno
   cp /files/coc.json $HOME/.config/nvim/coc-settings.json
 }
 

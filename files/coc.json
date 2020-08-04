@@ -8,7 +8,7 @@
     "no-inline-html": false,
     "no-duplicate-header": false
   },
-  "eslint.autoFixOnSave": true,
+  "tslint.autoFixOnSave": true,
   "coc.preferences.formatOnSaveFiletypes": [
     "javascript",
     "javascriptreact",
