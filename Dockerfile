@@ -1,16 +1,9 @@
-# get deno and node 8
-#FROM hayd/alpine-deno:1.1.3 AS deno
+# get deno
+FROM hayd/alpine-deno:1.1.3 AS deno
 # deno depends on glibc
 #FROM alpine:3
-#FROM frolvlad/alpine-glibc:alpine-3.12
-#COPY --from=deno /bin/deno /bin/deno
-#COPY --from=node8 /usr/local/bin/node /usr/local/bin/node
-#COPY --from=node8 /usr/local/bin/npm /usr/local/bin/npm
-#COPY --from=node8 /usr/local/bin/yarn /usr/local/bin/yarn
-#RUN apk add libstdc++ # node 8 depends on libstdc++
-# get node 8
-FROM node:10-alpine AS node10
-RUN yarn global add tsdx # add tsdx as npx tsdx fails
+FROM frolvlad/alpine-glibc:alpine-3.12
+COPY --from=deno /bin/deno /bin/deno
 
 # get configuration files ready
 COPY ./files /files
@@ -31,6 +24,10 @@ RUN apk add gcc g++ make
 RUN apk add git
 RUN git config --global credential.helper cache
 RUN git config --global credential.helper 'cache --timeout=86400'
+
+# install nodejs
+RUN apk add nodejs npm yarn
+RUN yarn global add tsdx # add tsdx as npx tsdx fails
 
 # install neovim
 RUN apk add neovim
