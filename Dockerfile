@@ -1,15 +1,48 @@
-#FROM alpine:3
+# get deno
 FROM hayd/alpine-deno:1.1.3 AS deno
-
+# deno depends on glibc
+#FROM alpine:3
 FROM frolvlad/alpine-glibc:alpine-3.12
 COPY --from=deno /bin/deno /bin/deno
 
+# get configuration files ready
 COPY ./files /files
-ADD run.sh /run.sh
-RUN sh /run.sh
-RUN rm /run.sh
-RUN rm -rf /files
+
+# install basic tools
+RUN apk update
+RUN apk add busybox-extras python3 python3-dev py3-pip tmux mlocate musl-locales cmake clang-extra-tools htop curl openssh libpng-dev bash lcms2-dev go
+
+# install configuration files
 ENV ENV /root/.bashrc
+RUN cp /files/bashrc /root/.bashrc
+RUN cp /files/tmux.conf /root/.tmux.conf
+
+# install dev tools
+RUN apk add gcc g++ make
+
+# install git
+RUN apk add git
+RUN git config --global credential.helper cache
+RUN git config --global credential.helper 'cache --timeout=86400'
+
+# install nodejs
+RUN apk add nodejs npm yarn
+RUN yarn global add tsdx # add tsdx as npx tsdx fails
+
+# install neovim
+RUN apk add neovim
+RUN pip3 install neovim jedi pylama conan
+RUN mkdir -p /root/.config/nvim
+RUN cp /files/vimrc /root/.config/nvim/init.vim
+RUN curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+RUN nvim --headless +PlugInstall +qall
+RUN mkdir -p /root/.config/coc/extensions
+WORKDIR /root/.config/coc/extensions
+RUN yarn add coc-ci coc-css coc-docker coc-explorer coc-json coc-markdownlint coc-pairs coc-python coc-snippets coc-tsserver coc-yaml coc-tslint coc-cmake coc-clangd coc-go # coc-deno
+RUN cp /files/coc.json /root/.config/nvim/coc-settings.json
+
+# clean configuration files
+RUN rm -rf /files
 
 WORKDIR /
 
