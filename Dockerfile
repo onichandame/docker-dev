@@ -31,7 +31,7 @@ RUN yarn global add tsdx # add tsdx as npx tsdx fails
 
 # install neovim
 RUN apk add neovim
-RUN pip3 install neovim jedi pylama conan
+RUN pip3 install neovim jedi pylama conan --ignore-installed six # conan depends on a different version of six
 RUN mkdir -p /root/.config/nvim
 RUN cp /files/vimrc /root/.config/nvim/init.vim
 RUN curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
