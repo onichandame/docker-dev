@@ -1,9 +1,16 @@
-# get deno
+# get deno and node 8
 FROM hayd/alpine-deno:1.1.3 AS deno
+# get node 8
+FROM node:8-alpine AS node8
 # deno depends on glibc
 #FROM alpine:3
 FROM frolvlad/alpine-glibc:alpine-3.12
 COPY --from=deno /bin/deno /bin/deno
+COPY --from=node8 /usr/local/bin/node /usr/local/bin/node
+COPY --from=node8 /usr/local/bin/npm /usr/local/bin/npm
+COPY --from=node8 /usr/local/bin/yarn /usr/local/bin/yarn
+RUN apk add libstdc++ # node 8 depends on libstdc++
+RUN yarn global add tsdx # add tsdx as npx tsdx fails
 
 # get configuration files ready
 COPY ./files /files
