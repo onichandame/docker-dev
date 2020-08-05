@@ -9,7 +9,7 @@
 #COPY --from=node8 /usr/local/bin/yarn /usr/local/bin/yarn
 #RUN apk add libstdc++ # node 8 depends on libstdc++
 # get node 8
-FROM node:8-alpine AS node8
+FROM node:10-alpine AS node10
 RUN yarn global add tsdx # add tsdx as npx tsdx fails
 
 # get configuration files ready
