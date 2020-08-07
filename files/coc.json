@@ -10,10 +10,6 @@
   },
   "tslint.autoFixOnSave": true,
   "coc.preferences.formatOnSaveFiletypes": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact",
     "json",
     "go"
   ]
