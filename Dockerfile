@@ -28,9 +28,6 @@ RUN git config --global credential.helper 'cache --timeout=86400'
 # install nodejs
 RUN apk add nodejs npm yarn
 RUN yarn global add tsdx # add tsdx as npx tsdx fails
-# use taobao mirror to bypass GFW
-RUN npm config set disturl https://npm.taobao.org/dist --global
-RUN npm config set registry https://registry.npm.taobao.org --global
 
 # install neovim
 RUN apk add neovim
@@ -49,6 +46,10 @@ WORKDIR /
 RUN wget -O retry https://github.com/onichandame/retry/releases/download/v0.0/retry_linux_amd64
 RUN install retry /usr/bin
 RUN rm -f retry
+
+# use taobao mirror to bypass GFW. should be the last as image is built by Github workers outside China
+RUN npm config set disturl https://npm.taobao.org/dist --global
+RUN npm config set registry https://registry.npm.taobao.org --global
 
 # clean configuration files
 RUN rm -rf /files
