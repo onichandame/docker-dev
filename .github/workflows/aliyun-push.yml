@@ -1,4 +1,4 @@
-name: Publish Docker
+name: Publish Aliyun
 on:
   push:
     branches:
