@@ -1,0 +1,20 @@
+name: Publish Docker
+on:
+  push:
+    branches:
+      - master
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prepare repo
+        uses: actions/checkout@master
+      - name: Publish to Aliyun
+        uses: risfeng/docker-image-build-push-action@v1.0
+        with:
+          registry_url: 'registry.cn-shanghai.aliyuncs.com'
+          namespaces: 'onichandame'
+          repository_name: 'docker-dev'
+          user_name: ${{ secrets.ALIYUN_IMAGES_HUB_USER_NAME }}
+          password: ${{ secrets.ALIYUN_IMAGES_HUB_TOKEN }}
+          image_version: 'latest'
