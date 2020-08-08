@@ -17,7 +17,7 @@ jobs:
     needs: [publish]
     steps:
       - name: Sync image to Aliyun
-        uses: onichandame/docker-registry-sync-action:master
+        uses: onichandame/docker-registry-sync-action@master
         with:
           source_repository: 'docker.io/onichandame/docker-dev'
           target_repository: 'registry.cn-shanghai.aliyuncs.com/onichandame/docker-dev'
