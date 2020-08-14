@@ -8,8 +8,10 @@
     "no-inline-html": false,
     "no-duplicate-header": false
   },
-  "tslint.autoFixOnSave": true,
   "coc.preferences.formatOnSaveFiletypes": [
+    "markdown",
+    "typescript",
+    "javascript",
     "json",
     "go"
   ]
