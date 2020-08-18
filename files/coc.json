@@ -11,6 +11,8 @@
   "coc.preferences.formatOnSaveFiletypes": [
     "markdown",
     "typescript",
+    "typescriptreact",
+    "javascriptreact",
     "javascript",
     "json",
     "go"
