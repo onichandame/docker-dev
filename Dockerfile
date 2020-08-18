@@ -43,7 +43,7 @@ RUN cp /files/coc.json /root/.config/nvim/coc-settings.json
 
 # install retry
 WORKDIR /
-RUN wget -O retry https://github.com/onichandame/retry/releases/download/v0.0/retry_linux_amd64
+RUN wget -O retry https://github.com/onichandame/retry/releases/download/v0.0.1/retry_linux_amd64
 RUN install retry /usr/bin
 RUN rm -f retry
 
