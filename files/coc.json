@@ -9,6 +9,7 @@
     "no-duplicate-header": false
   },
   "coc.preferences.formatOnSaveFiletypes": [
+    "yaml",
     "markdown",
     "typescript",
     "typescriptreact",
