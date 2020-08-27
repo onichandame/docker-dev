@@ -27,7 +27,7 @@ RUN git config --global credential.helper 'cache --timeout=86400'
 
 # install nodejs
 RUN apk add nodejs npm yarn
-RUN yarn global add tsdx # add tsdx as npx tsdx fails
+RUN yarn global add ts-node tsdx # add tsdx as npx tsdx fails
 
 # install neovim
 RUN apk add neovim
