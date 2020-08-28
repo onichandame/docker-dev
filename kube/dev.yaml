@@ -1,14 +1,70 @@
 # deploy a fully functional development environment as a statefulset
 # check https://github.com/onichandame/docker-dev for docs
 apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: admin-user
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRole
+metadata:
+  name: api-access
+rules:
+  - apiGroups:
+      - ""
+      - apps
+      - autoscaling
+      - batch
+      - extensions
+      - policy
+      - rbac.authorization.k8s.io
+    resources:
+      - componentstatuses
+      - configmaps
+      - daemonsets
+      - deployments
+      - events
+      - endpoints
+      - horizontalpodautoscalers
+      - ingress
+      - jobs
+      - limitranges
+      - namespaces
+      - nodes
+      - pods
+      - persistentvolumes
+      - persistentvolumeclaims
+      - resourcequotas
+      - replicasets
+      - replicationcontrollers
+      - serviceaccounts
+      - services
+    verbs: ["*"]
+  - nonResourceURLs: ["*"]
+    verbs: ["*"]
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: api-access
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: api-access
+subjects:
+  - kind: ServiceAccount
+    name: admin-user
+    namespace: default
+---
+apiVersion: v1
 kind: Service
 metadata:
   name: dev
 spec:
   ports:
-  - name: dev
-    port: 30000
-    targetPort: 3000
+    - name: dev
+      port: 30000
+      targetPort: 3000
   selector:
     app: dev
   type: LoadBalancer
@@ -29,34 +85,35 @@ spec:
         app: dev
     spec:
       terminationGracePeriodSeconds: 0
+      serviceAccountName: admin-user
       containers:
-      - name: dev
-        image: "onichandame/docker-dev:latest"
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 3000
-          name: dev-port
-        volumeMounts:
-        - mountPath: /git # mount your workspaces here
-          name: git-claim
-        env:
-          - name: GIT_USER_NAME
-            value: "onichandame"
-          - name: GIT_USER_EMAIL
-            value: "zxinmyth@gmail.com"
-          - name: PROXY_SERVER_ADDR
-            value: "<your proxy server addr>"
-          - name: PROXY_SERVER_PORT
-            value: "<your proxy server port>"
+        - name: dev
+          image: "onichandame/docker-dev:latest"
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+              name: dev-port
+          volumeMounts:
+            - mountPath: /git # mount your workspaces here
+              name: git-claim
+          env:
+            - name: GIT_USER_NAME
+              value: "onichandame"
+            - name: GIT_USER_EMAIL
+              value: "zxinmyth@gmail.com"
+            - name: PROXY_SERVER_ADDR
+              value: "<your proxy server addr>"
+            - name: PROXY_SERVER_PORT
+              value: "<your proxy server port>"
   volumeClaimTemplates:
-  - metadata:
-      name: git-claim
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      storageClassName: local-storage
-      resources:
-        requests:
-          storage: 500Gi
+    - metadata:
+        name: git-claim
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: local-storage
+        resources:
+          requests:
+            storage: 500Gi
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -66,7 +123,7 @@ spec:
   capacity:
     storage: 500Gi
   accessModes:
-  - ReadWriteOnce
+    - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   storageClassName: local-storage
   local:
@@ -74,11 +131,11 @@ spec:
   nodeAffinity:
     required:
       nodeSelectorTerms:
-      - matchExpressions:
-        - key: kubernetes.io/hostname
-          operator: In
-          values:
-          - minikube # match the name of the node where files reside
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - minikube # match the name of the node where files reside
 ---
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
