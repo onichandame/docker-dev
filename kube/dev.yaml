@@ -1,5 +1,20 @@
 # deploy a fully functional development environment as a statefulset
 # check https://github.com/onichandame/docker-dev for docs
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: dev
+  annotations:
+    kubernetes.io/ingress.class: ambassador
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /
+            backend:
+              serviceName: dev
+              servicePort: 3000
+---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
