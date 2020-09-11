@@ -10,7 +10,7 @@ COPY ./files /files
 
 # install basic tools
 RUN apk update
-RUN apk add busybox-extras python3 python3-dev py3-pip tmux mlocate musl-locales cmake clang-extra-tools htop curl openssh libpng-dev bash lcms2-dev go iptraf-ng proxychains-ng
+RUN apk add busybox-extras python3 python3-dev py3-pip libffi-dev tmux mlocate musl-locales cmake clang-extra-tools htop curl openssh libpng-dev bash lcms2-dev go iptraf-ng proxychains-ng
 
 # install configuration files
 ENV ENV /root/.bashrc
@@ -18,7 +18,7 @@ RUN cp /files/bashrc /root/.bashrc
 RUN cp /files/tmux.conf /root/.tmux.conf
 
 # install dev tools
-RUN apk add gcc g++ make
+RUN apk add gcc g++ make socat
 
 # install git
 RUN apk add git
