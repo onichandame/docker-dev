@@ -1,0 +1,26 @@
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+spec:
+  components:
+    ingressGateways:
+      - name: istio-ingressgateway
+        enabled: true
+        k8s:
+          nodeSelector:
+            ingress-ready: "true"
+          resources:
+            requests:
+              cpu: 200m
+          serviceAnnotations:
+            cloud.google.com/load-balancer-type: "internal"
+          service:
+            type: NodePort
+            ports:
+              - port: 80
+                targetPort: 8080
+                nodePort: 30001
+                name: http2
+              - port: 443
+                targetPort: 8443
+                nodePort: 30002
+                name: https

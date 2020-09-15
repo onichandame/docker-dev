@@ -1,19 +1,38 @@
 # deploy a fully functional development environment as a statefulset
 # check https://github.com/onichandame/docker-dev for docs
-apiVersion: extensions/v1beta1
-kind: Ingress
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
 metadata:
-  name: dev
-  annotations:
-    kubernetes.io/ingress.class: ambassador
+  name: http-gateway
 spec:
-  rules:
-    - http:
-        paths:
-          - path: /
-            backend:
-              serviceName: dev
-              servicePort: 3000
+  selector:
+    istio: ingressgateway # use Istio default gateway implementation
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: httpbin
+spec:
+  gateways:
+    - http-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /
+      route:
+        - destination:
+            host: dev
+            port:
+              number: 3000
+  hosts:
+    - "*"
 ---
 apiVersion: v1
 kind: ServiceAccount
