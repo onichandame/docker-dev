@@ -59,6 +59,11 @@ WORKDIR /root/.pip
 RUN cp /files/pip.conf ./pip.conf
 WORKDIR /
 
+# use aliyun apk source
+WORKDIR /etc/apk
+RUN cp /files/apk-repo ./repositories
+WORKDIR /
+
 # clean configuration files
 RUN rm -rf /files
 
