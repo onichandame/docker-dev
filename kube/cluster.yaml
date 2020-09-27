@@ -31,7 +31,7 @@ nodes:
             node-labels: "ingress-ready=true"
     extraMounts:
       - hostPath: /home/user/workspace # match the directory on your host
-        containerPath: /git
+        containerPath: /<workspace> # path to the workspace on the worker node
     extraPortMappings:
       - containerPort: 30001
         hostPort: 80

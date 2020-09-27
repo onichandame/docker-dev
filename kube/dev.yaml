@@ -98,21 +98,20 @@ metadata:
 spec:
   ports:
     - name: dev
-      port: 30000
+      port: 3000
       targetPort: 3000
   selector:
     app: dev
-  type: LoadBalancer
+  type: ClusterIP
 ---
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: dev
 spec:
   selector:
     matchLabels:
       app: dev
-  serviceName: "dev"
   replicas: 1
   template:
     metadata:
@@ -120,61 +119,33 @@ spec:
         app: dev
     spec:
       terminationGracePeriodSeconds: 0
-      serviceAccountName: admin-user
       containers:
         - name: dev
-          image: "onichandame/docker-dev:latest"
+          image: "registry.cn-hangzhou.aliyuncs.com/onichandame/docker-dev:latest"
           imagePullPolicy: Always
+          tty: true
           ports:
             - containerPort: 3000
               name: dev-port
           volumeMounts:
-            - mountPath: /git # mount your workspaces here
-              name: git-claim
+            - mountPath: /<workspace> # mount your workspace to pod
+              name: git-storage
           env:
             - name: GIT_USER_NAME
               value: "onichandame"
             - name: GIT_USER_EMAIL
               value: "zxinmyth@gmail.com"
-            - name: PROXY_SERVER_ADDR
-              value: "<your proxy server addr>"
-            - name: PROXY_SERVER_PORT
-              value: "<your proxy server port>"
-  volumeClaimTemplates:
-    - metadata:
-        name: git-claim
-      spec:
-        accessModes: ["ReadWriteOnce"]
-        storageClassName: local-storage
-        resources:
-          requests:
-            storage: 500Gi
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: git-storage
-spec:
-  capacity:
-    storage: 500Gi
-  accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: local-storage
-  local:
-    path: /hosthome/xiao/git # match the directory containing all your workspaces
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-        - matchExpressions:
-            - key: kubernetes.io/hostname
-              operator: In
-              values:
-                - minikube # match the name of the node where files reside
----
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: local-storage
-provisioner: kubernetes.io/no-provisioner
-volumeBindingMode: WaitForFirstConsumer
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - kind-worker # match the name of the node where files are mounted
+      volumes:
+        - name: git-storage
+          hostPath:
+            path: /<workspace> # your workspace in a worker node
+            type: Directory
