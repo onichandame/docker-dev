@@ -1,9 +1,17 @@
 # deploy a fully functional development environment as a statefulset
 # check https://github.com/onichandame/docker-dev for docs
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dev
+  labels:
+    istio-injection: enabled
+---
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
   name: http-gateway
+  namespace: dev
 spec:
   selector:
     istio: ingressgateway # use Istio default gateway implementation
@@ -18,7 +26,8 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: httpbin
+  name: http
+  namespace: dev
 spec:
   gateways:
     - http-gateway
@@ -38,11 +47,13 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: admin-user
+  namespace: dev
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRole
 metadata:
   name: api-access
+  namespace: dev
 rules:
   - apiGroups:
       - ""
@@ -82,6 +93,7 @@ apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRoleBinding
 metadata:
   name: api-access
+  namespace: dev
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -95,6 +107,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: dev
+  namespace: dev
 spec:
   ports:
     - name: dev
@@ -108,6 +121,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: dev
+  namespace: dev
 spec:
   selector:
     matchLabels:
@@ -132,20 +146,11 @@ spec:
               name: git-storage
           env:
             - name: GIT_USER_NAME
-              value: "onichandame"
+              value: "<your git name>"
             - name: GIT_USER_EMAIL
-              value: "zxinmyth@gmail.com"
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-              - matchExpressions:
-                  - key: kubernetes.io/hostname
-                    operator: In
-                    values:
-                      - kind-worker # match the name of the node where files are mounted
+              value: "<your git email>"
       volumes:
         - name: git-storage
           hostPath:
-            path: /<workspace> # your workspace in a worker node
+            path: /<workspace> # your workspace in the worker nodes
             type: Directory
