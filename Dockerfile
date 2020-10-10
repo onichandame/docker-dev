@@ -52,7 +52,8 @@ RUN rm -f retry
 # use taobao mirror to bypass GFW. should be the last as image is built by Github workers outside China
 RUN npm config set disturl https://npm.taobao.org/dist --global
 RUN npm config set registry https://registry.npm.taobao.org --global
-RUN yarn config set registry https://registry.npm.taobao.org
+RUN yarn global add yrm
+RUN yrm use taobao
 
 # use tsinghua pip source to speed up pip in China
 WORKDIR /root/.pip
