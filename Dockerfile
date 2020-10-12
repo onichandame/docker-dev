@@ -63,6 +63,7 @@ WORKDIR /
 # use aliyun apk source
 WORKDIR /etc/apk
 RUN cp /files/apk-repo ./repositories
+RUN apk update
 WORKDIR /
 
 # clean configuration files
