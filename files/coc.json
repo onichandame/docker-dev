@@ -8,6 +8,7 @@
     "no-inline-html": false,
     "no-duplicate-header": false
   },
+  "yaml.format.singleQuote": true,
   "coc.preferences.formatOnSaveFiletypes": [
     "yaml",
     "markdown",
