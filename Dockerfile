@@ -49,6 +49,10 @@ RUN rm -f retry.tgz
 RUN install retry /usr/bin
 RUN rm -f retry
 
+# go proxy
+RUN go env -w GOPROXY=https://goproxy.cn,direct
+RUN go env -w GO111MODULE=on
+
 # use taobao mirror to bypass GFW. should be the last as image is built by Github workers outside China
 RUN npm config set disturl https://npm.taobao.org/dist --global
 RUN npm config set registry https://registry.npm.taobao.org --global
