@@ -1,13 +1,7 @@
-# get deno
-FROM hayd/alpine-deno:1.1.3 AS deno
+# latest go
+FROM golang:alpine AS go
 
-# go 1.14
-FROM golang:1.14-alpine AS go
-
-# deno depends on glibc
-#FROM alpine:3
-FROM frolvlad/alpine-glibc:alpine-3.12
-COPY --from=deno /bin/deno /bin/deno
+FROM alpine
 COPY --from=go /usr/local/go /usr/local/go
 ENV PATH $PATH:/usr/local/go/bin
 
@@ -44,7 +38,7 @@ RUN curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://r
 RUN nvim --headless +PlugInstall +qall
 RUN mkdir -p /root/.config/coc/extensions
 WORKDIR /root/.config/coc/extensions
-RUN yarn add coc-ci coc-css coc-docker coc-explorer coc-json coc-markdownlint coc-pairs coc-python coc-snippets coc-tsserver coc-yaml coc-prettier coc-cmake coc-clangd coc-go # coc-deno
+RUN yarn add coc-ci coc-css coc-docker coc-explorer coc-json coc-markdownlint coc-pairs coc-python coc-snippets coc-tsserver coc-yaml coc-prettier coc-cmake coc-clangd coc-go
 RUN cp /files/coc.json /root/.config/nvim/coc-settings.json
 
 # install retry
