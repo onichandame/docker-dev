@@ -1,0 +1,97 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sshd
+  namespace: dev
+data:
+  sshd.sh: |
+    sed -i 's/AllowTcpForwarding no/AllowTcpForwarding yes/g' /etc/ssh/sshd_config
+    sed -i 's/GatewayPorts no/GatewayPorts yes/g' /etc/ssh/sshd_config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pubkey
+  namespace: dev
+data:
+  id_rsa.pub: |
+    ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDBQ7Ky08paft1H+mwe3z7GB+YQHL/ivkVWHL9ty33eriDQym0CM6/ExdzvPgNglrrMgChVSzuaqUbj/3tXdYuFeq9WbLRyxJlqtfOMPuuPl7udItgv7hX9yc75vNiKINaXlM5gJXMU/XASRGnLu/GMhR4jKWtRB0SS/XWxl9jqjigG5eV0AB8n8awxzIthzFybhdHupqPHiaHCyS3rRPJfxXF6Nu05/cnnGTmlV+HE3rM9IlrmLe1kY204YBTHIyxtHEURC2u7t+zi2pwfL/ULz1OgAwjKMMXno0EoyM8g5j3mDX9zcy6hEtgGJ36zYdI1YZ7ps5anCrc5jQnAi1zuAoAKUIBfNesgIVIUEXaEsih5OdMY8D5aFjUstAl/uysVjxxNQc0a4rPJzarQlUajH8jw3bDzkDEeOl6iv2JwEVV+qEED4m1LHMob6lsAQZcPEgOM8FZHx3KYjzSNmc7EvTmyeSX+oWMfmwZlmdCeroz52BAWx3nBCAizPjjKTU0= xiao@xiao-Lenovo-G505s
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dev
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: reverse-proxy
+  namespace: dev
+spec:
+  ports:
+    - name: ssh
+      port: 22
+      targetPort: ssh
+    - name: http
+      port: 8081
+      targetPort: http
+    - name: https
+      port: 443
+      targetPort: https
+  selector:
+    app: reverse-proxy
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reverse-proxy
+  namespace: dev
+  labels:
+    app: reverse-proxy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reverse-proxy
+  template:
+    metadata:
+      labels:
+        app: reverse-proxy
+    spec:
+      containers:
+        - name: proxy
+          image: ghcr.io/linuxserver/openssh-server
+          ports:
+            - containerPort: 8080
+              name: http
+            - containerPort: 8443
+              name: https
+            - containerPort: 2222
+              name: ssh
+          volumeMounts:
+            - mountPath: /data
+              name: pubkey
+            - mountPath: /config/custom-cont-init.d
+              name: sshd
+          env:
+            - name: PUBLIC_KEY_FILE
+              value: "/data/id_rsa.pub"
+            - name: SUDO_ACCESS
+              value: "true"
+            - name: USER_NAME
+              value: "xiao"
+      volumes:
+        - name: pubkey
+          configMap:
+            name: pubkey
+            items:
+              - key: "id_rsa.pub"
+                path: "id_rsa.pub"
+        - name: sshd
+          configMap:
+            name: sshd
+            items:
+              - key: "sshd.sh"
+                path: "sshd.sh"
