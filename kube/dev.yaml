@@ -137,7 +137,8 @@ spec:
         - name: dev
           image: "registry.cn-hangzhou.aliyuncs.com/onichandame/docker-dev:latest"
           imagePullPolicy: Always
-          tty: true
+          securityContext:
+            privileged: true
           ports:
             - containerPort: 3000
               name: dev-port
