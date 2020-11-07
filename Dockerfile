@@ -75,5 +75,3 @@ WORKDIR /
 RUN rm -rf /files
 
 WORKDIR /
-
-ENTRYPOINT ["ash"]
