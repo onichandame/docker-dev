@@ -1,7 +1,8 @@
 # latest go
 FROM golang:alpine AS go
 
-FROM alpine
+#FROM alpine
+FROM docker:dind
 COPY --from=go /usr/local/go /usr/local/go
 ENV PATH $PATH:/usr/local/go/bin
 
