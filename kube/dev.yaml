@@ -148,20 +148,11 @@ spec:
           volumeMounts:
             - mountPath: /git # mount your workspaces here
               name: git-claim
-            - name: proxychains
-              mountPath: "/etc/proxychains"
           env:
             - name: GIT_USER_NAME
               value: "onichandame"
             - name: GIT_USER_EMAIL
               value: "zxinmyth@gmail.com"
-      volumes:
-        - name: proxychains
-          configMap:
-            name: proxychains
-            items:
-              - key: "proxychains.conf"
-                path: "proxychains.conf"
   volumeClaimTemplates:
     - metadata:
         name: git-claim
