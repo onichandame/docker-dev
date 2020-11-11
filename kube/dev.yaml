@@ -118,7 +118,7 @@ spec:
   type: ClusterIP
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: dev
   namespace: dev
@@ -126,6 +126,7 @@ spec:
   selector:
     matchLabels:
       app: dev
+  serviceName: "dev"
   replicas: 1
   template:
     metadata:
@@ -133,6 +134,7 @@ spec:
         app: dev
     spec:
       terminationGracePeriodSeconds: 0
+      serviceAccountName: admin-user
       containers:
         - name: dev
           image: "registry.cn-hangzhou.aliyuncs.com/onichandame/docker-dev:latest"
@@ -144,15 +146,59 @@ spec:
             - containerPort: 3000
               name: dev-port
           volumeMounts:
-            - mountPath: /<workspace> # mount your workspace to pod
-              name: git-storage
+            - mountPath: /git # mount your workspaces here
+              name: git-claim
+            - name: proxychains
+              mountPath: "/etc/proxychains"
           env:
             - name: GIT_USER_NAME
-              value: "<your git name>"
+              value: "onichandame"
             - name: GIT_USER_EMAIL
-              value: "<your git email>"
+              value: "zxinmyth@gmail.com"
       volumes:
-        - name: git-storage
-          hostPath:
-            path: /<workspace> # your workspace in the worker nodes
-            type: Directory
+        - name: proxychains
+          configMap:
+            name: proxychains
+            items:
+              - key: "proxychains.conf"
+                path: "proxychains.conf"
+  volumeClaimTemplates:
+    - metadata:
+        name: git-claim
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: local-storage
+        resources:
+          requests:
+            storage: 500Gi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: git-storage
+  namespace: dev
+spec:
+  capacity:
+    storage: 500Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage
+  local:
+    path: /root # match the directory containing all your workspaces
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - cn-shanghai.192.168.20.178 # match the name of the node where files reside
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: local-storage
+  namespace: dev
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
