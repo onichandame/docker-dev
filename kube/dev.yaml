@@ -41,7 +41,7 @@ spec:
             port:
               number: 3000
   hosts:
-    - "*"
+    - "<hostname>"
 ---
 apiVersion: v1
 kind: ServiceAccount
