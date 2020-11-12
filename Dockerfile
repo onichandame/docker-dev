@@ -2,7 +2,7 @@
 FROM golang:alpine AS go
 
 # glibc
-FROM frolvlad/alpine-glibc AS glibc
+FROM frolvlad/alpine-glibc:alpine-3.12 AS glibc
 
 #FROM alpine
 FROM docker:dind
