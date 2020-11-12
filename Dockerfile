@@ -9,9 +9,10 @@ FROM docker:dind
 COPY --from=go /usr/local/go /usr/local/go
 ENV PATH $PATH:/usr/local/go/bin
 
-COPY --from=glibc /usr/glibc-compat /usr
-RUN ln -s /usr/glibc-compat/lib/ld-linux-x86-64.so.2 /lib/ld-linux-x86-64.so.2
-RUN mkdir /lib64 && ln -s /usr/glibc-compat/lib64/ld-linux-x86-64.so.2 /lib64/ld-linux-x86-64.so.2
+COPY --from=glibc /usr/glibc-compat/lib/ld-linux-x86-64.so.2 /lib/
+WORKDIR /lib64
+COPY --from=glibc /usr/glibc-compat/lib64/ld-linux-x86-64.so.2 /lib64
+WORKDIR /
 
 # get configuration files ready
 COPY ./files /files
