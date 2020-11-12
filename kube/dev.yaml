@@ -21,7 +21,7 @@ spec:
         name: http
         protocol: HTTP
       hosts:
-        - "<hostname>"
+        - "<hostname>" # match the domain name of your own
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -148,11 +148,20 @@ spec:
           volumeMounts:
             - mountPath: /git # mount your workspaces here
               name: git-claim
+            - name: proxychains
+              mountPath: "/etc/proxychains"
           env:
             - name: GIT_USER_NAME
               value: "<username>"
             - name: GIT_USER_EMAIL
               value: "<email>"
+      volumes:
+        - name: proxychains
+          configMap:
+            name: proxychains
+            items:
+              - key: "proxychains.conf"
+                path: "proxychains.conf"
   volumeClaimTemplates:
     - metadata:
         name: git-claim
@@ -193,3 +202,17 @@ metadata:
   namespace: dev
 provisioner: kubernetes.io/no-provisioner
 volumeBindingMode: WaitForFirstConsumer
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: proxychains
+  namespace: dev
+data:
+  proxychains.conf: |
+    strict_chain
+    remote_dns_subnet 224
+    tcp_read_time_out 15000
+    tcp_connect_time_out 8000
+    [ProxyList]
+    socks5 localhost 10808
