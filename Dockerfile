@@ -3,16 +3,21 @@ FROM golang:alpine AS go
 
 # glibc
 FROM frolvlad/alpine-glibc:alpine-3.12 AS glibc
+workdir /usr
+run tar -zcf glibc.tgz glibc-compat
 
 #FROM alpine
 FROM docker:dind
 COPY --from=go /usr/local/go /usr/local/go
 ENV PATH $PATH:/usr/local/go/bin
 
-COPY --from=glibc /usr/glibc-compat/lib/ld-linux-x86-64.so.2 /lib/
-WORKDIR /lib64
-COPY --from=glibc /usr/glibc-compat/lib64/ld-linux-x86-64.so.2 /lib64
+copy --from=glibc /usr/glibc.tgz /usr
+workdir /usr
+run tar -zxf glibc.tgz
+run rm glibc.tgz
 WORKDIR /
+run ln -s /usr/glibc-compat/lib/ld-linux-x86-64.so.2 /lib/ld-linux-x86-64.so.2
+run ln -s /usr/glibc-compat/lib64/ld-linux-x86-64.so.2 /lib64/ld-linux-x86-64.so.2
 
 # get configuration files ready
 COPY ./files /files
