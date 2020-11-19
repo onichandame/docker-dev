@@ -42,7 +42,7 @@ RUN git config --global credential.helper 'cache --timeout=86400'
 
 # install nodejs
 RUN apk add nodejs-current npm yarn
-RUN yarn global add ts-node tsdx # add tsdx as npx tsdx fails
+RUN yarn global add ts-node tsdx @nestjs/cli @nestjs/schematics
 
 # install neovim
 RUN apk add neovim
@@ -54,7 +54,7 @@ RUN nvim --headless +PlugInstall +qall
 RUN mkdir -p /root/.config/coc/extensions
 WORKDIR /root/.config/coc/extensions
 # functioning extensions
-RUN yarn add coc-docker coc-ci coc-css coc-explorer coc-json coc-markdownlint coc-pairs coc-python coc-snippets coc-tsserver coc-yaml coc-prettier coc-cmake coc-clangd coc-go
+RUN yarn add coc-docker coc-ci coc-css coc-explorer coc-json coc-markdownlint coc-pairs coc-python coc-snippets coc-tsserver coc-yaml coc-prettier coc-cmake coc-clangd coc-go coc-prisma
 RUN cp /files/coc.json /root/.config/nvim/coc-settings.json
 
 # install retry
