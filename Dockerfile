@@ -42,7 +42,7 @@ RUN git config --global credential.helper 'cache --timeout=86400'
 
 # install nodejs
 RUN apk add nodejs-current npm yarn
-RUN yarn global add ts-node tsdx @nestjs/cli @nestjs/schematics
+RUN yarn global add ts-node tsdx @nestjs/cli @nestjs/schematics @prisma/cli
 
 # install neovim
 RUN apk add neovim
