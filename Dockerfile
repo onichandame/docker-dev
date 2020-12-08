@@ -60,7 +60,8 @@ RUN nvim --headless +PlugInstall +qall
 RUN mkdir -p /root/.config/coc/extensions
 WORKDIR /root/.config/coc/extensions
 # functioning extensions
-RUN yarn add coc-docker coc-ci coc-css coc-explorer coc-json coc-markdownlint coc-pairs coc-python coc-snippets coc-tsserver coc-yaml coc-prettier coc-cmake coc-clangd coc-go
+RUN timeout 3m nvim --headless +CocInstall coc-docker coc-ci coc-css coc-explorer coc-json coc-markdownlint coc-pairs coc-python coc-snippets coc-tsserver coc-yaml coc-prettier coc-cmake coc-clangd coc-go; exit 0
+# RUN yarn add coc-docker coc-ci coc-css coc-explorer coc-json coc-markdownlint coc-pairs coc-python coc-snippets coc-tsserver coc-yaml coc-prettier coc-cmake coc-clangd coc-go
 RUN cp /files/coc.json /root/.config/nvim/coc-settings.json
 
 # install retry
