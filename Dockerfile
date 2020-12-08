@@ -40,12 +40,6 @@ RUN apk add git
 RUN git config --global credential.helper cache
 RUN git config --global credential.helper 'cache --timeout=86400'
 
-# install kubectl
-WORKDIR /
-RUN curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
-RUN install kubectl /usr/bin/
-RUN rm -f kubectl
-
 # install nodejs
 RUN apk add nodejs-current npm yarn
 RUN yarn global add ts-node tsdx @nestjs/cli @nestjs/schematics http-server
