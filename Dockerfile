@@ -58,7 +58,9 @@ RUN yarn add coc-docker coc-ci coc-css coc-explorer coc-json coc-markdownlint co
 RUN cp /files/coc.json /root/.config/nvim/coc-settings.json
 
 # htop configuration
+workdir /root/.config/htop
 run cp /files/htoprc /root/.config/htop/htoprc
+workdir /
 
 # install retry
 WORKDIR /
