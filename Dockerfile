@@ -44,6 +44,11 @@ RUN git config --global credential.helper 'cache --timeout=86400'
 RUN apk add nodejs-current npm yarn
 RUN yarn global add ts-node tsdx @nestjs/cli @nestjs/schematics http-server
 
+# install chromium for puppeteer
+run apk add --no-cache chromium nss freetype freetype-dev harfbuzz ca-certificates ttf-freefont nodejs yarn
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+env PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+
 # install neovim
 RUN apk add neovim
 RUN pip3 install neovim jedi pylama conan --ignore-installed six # conan depends on a different version of six
@@ -53,6 +58,7 @@ RUN curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://r
 RUN nvim --headless +PlugInstall +qall
 RUN mkdir -p /root/.config/coc/extensions
 WORKDIR /root/.config/coc/extensions
+
 # functioning extensions
 RUN yarn add coc-docker coc-ci coc-css coc-explorer coc-json coc-markdownlint coc-pairs coc-python coc-snippets coc-tsserver coc-yaml coc-prettier coc-cmake coc-clangd coc-go
 RUN cp /files/coc.json /root/.config/nvim/coc-settings.json
