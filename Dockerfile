@@ -70,7 +70,7 @@ RUN go env -w GOPROXY=https://goproxy.cn,direct
 RUN go env -w GO111MODULE=on
 
 # use taobao mirror to bypass GFW. should be the last as image is built by Github workers outside China
-RUN yarn global add yrm
+RUN yarn global add yrm --prefix /usr/local
 RUN yrm use taobao
 
 # use tsinghua pip source to speed up pip in China
@@ -84,7 +84,7 @@ RUN cp /files/apk-repo ./repositories
 RUN apk update
 WORKDIR /
 
-# clean configuration files
+# clean temporary files
 RUN rm -rf /files
 
 WORKDIR /
