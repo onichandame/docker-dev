@@ -1,11 +1,4 @@
 {
-  "languageserver": {
-    "docker": {
-      "command": "docker-langserver",
-      "args": ["--stdio"],
-      "filetypes": ["dockerfile", "Dockerfile"]
-    }
-  },
   "markdownlint.config": {
     "no-space-in-emphasis": false,
     "first-line-heading": false,

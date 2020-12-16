@@ -57,6 +57,9 @@ WORKDIR /root/.config/coc/extensions
 RUN yarn add coc-docker coc-ci coc-css coc-explorer coc-json coc-markdownlint coc-pairs coc-python coc-snippets coc-tsserver coc-yaml coc-prettier coc-cmake coc-clangd coc-go
 RUN cp /files/coc.json /root/.config/nvim/coc-settings.json
 
+# htop configuration
+run cp /files/htoprc /root/.config/htop/htoprc
+
 # install retry
 WORKDIR /
 RUN wget -O retry.tgz https://github.com/onichandame/retry/releases/download/v0.0.3/retry-v0.0.3-linux-amd64.tar.gz
