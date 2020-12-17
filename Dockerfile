@@ -22,7 +22,7 @@ WORKDIR /
 
 # install basic tools
 RUN apk update
-RUN apk add busybox-extras python3 python3-dev py3-pip libffi-dev openssl-dev tmux mlocate musl-locales cmake clang-extra-tools htop curl openssh libpng-dev bash lcms2-dev iptraf-ng proxychains-ng automake autoconf libtool nasm util-linux docs bind-tools
+RUN apk add busybox-extras python3 python3-dev py3-pip libffi-dev openssl-dev tmux mlocate musl-locales cmake clang-extra-tools htop curl openssh openssh-server libpng-dev bash lcms2-dev iptraf-ng proxychains-ng automake autoconf libtool nasm util-linux docs bind-tools
 
 # install configuration files
 ENV ENV /root/.bashrc
@@ -77,12 +77,6 @@ RUN rm -f retry
 RUN go env -w GOPROXY=https://goproxy.cn,direct
 RUN go env -w GO111MODULE=on
 
-# install sshd
-run apk add openssh-server
-add run.sh /run.sh
-run chmod +x /run.sh
-cmd ["/run.sh"]
-
 # use taobao mirror to bypass GFW. should be the last as image is built by Github workers outside China
 RUN yarn global add yrm --prefix /usr/local
 RUN yrm use taobao
@@ -98,4 +92,8 @@ add files/apk-repo ./repositories
 RUN apk update
 WORKDIR /
 
-WORKDIR /
+# run sshd and dockerd
+add run.sh /run.sh
+run chmod +x /run.sh
+cmd ["/run.sh"]
+
