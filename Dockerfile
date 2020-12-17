@@ -77,6 +77,12 @@ RUN rm -f retry
 RUN go env -w GOPROXY=https://goproxy.cn,direct
 RUN go env -w GO111MODULE=on
 
+# install sshd
+run apk add openssh-server
+add run.sh /run.sh
+run chmod +x /run.sh
+cmd ["/run.sh"]
+
 # use taobao mirror to bypass GFW. should be the last as image is built by Github workers outside China
 RUN yarn global add yrm --prefix /usr/local
 RUN yrm use taobao
