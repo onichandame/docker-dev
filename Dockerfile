@@ -22,7 +22,7 @@ WORKDIR /
 
 # install basic tools
 RUN apk update
-RUN apk add busybox-extras python3 python3-dev py3-pip libffi-dev openssl-dev tmux mlocate musl-locales cmake clang-extra-tools htop curl openssh libpng-dev bash lcms2-dev iptraf-ng proxychains-ng automake autoconf libtool nasm util-linux docs
+RUN apk add busybox-extras python3 python3-dev py3-pip libffi-dev openssl-dev tmux mlocate musl-locales cmake clang-extra-tools htop curl openssh libpng-dev bash lcms2-dev iptraf-ng proxychains-ng automake autoconf libtool nasm util-linux docs bind-tools
 
 # install configuration files
 ENV ENV /root/.bashrc
