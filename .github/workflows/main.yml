@@ -1,6 +1,9 @@
 name: Publish Docker
 on:
   push:
+    branches:
+      - "main"
+      - "master"
     paths-ignore:
       - "kube/**"
       - ".github/**"

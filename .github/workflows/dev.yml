@@ -1,0 +1,21 @@
+name: Publish Docker
+on:
+  push:
+    branches-ignore:
+      - "main"
+      - "master"
+    paths-ignore:
+      - "kube/**"
+      - ".github/**"
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prepare repo
+        uses: actions/checkout@master
+      - name: Publish to Registry
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: onichandame/docker-dev
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}

@@ -20,17 +20,14 @@ WORKDIR /lib64
 RUN ln -s /usr/glibc-compat/lib64/ld-linux-x86-64.so.2 /lib64/ld-linux-x86-64.so.2
 WORKDIR /
 
-# get configuration files ready
-COPY ./files /files
-
 # install basic tools
 RUN apk update
 RUN apk add busybox-extras python3 python3-dev py3-pip libffi-dev openssl-dev tmux mlocate musl-locales cmake clang-extra-tools htop curl openssh libpng-dev bash lcms2-dev iptraf-ng proxychains-ng automake autoconf libtool nasm util-linux docs
 
 # install configuration files
 ENV ENV /root/.bashrc
-RUN cp /files/bashrc /root/.bashrc
-RUN cp /files/tmux.conf /root/.tmux.conf
+add files/bashrc /root/.bashrc
+add files/tmux.conf /root/.tmux.conf
 
 # install dev tools
 RUN apk add gcc g++ make socat
@@ -53,7 +50,7 @@ env PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 RUN apk add neovim
 RUN pip3 install neovim jedi pylama conan --ignore-installed six # conan depends on a different version of six
 RUN mkdir -p /root/.config/nvim
-RUN cp /files/vimrc /root/.config/nvim/init.vim
+add files/vimrc /root/.config/nvim/init.vim
 RUN curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 RUN nvim --headless +PlugInstall +qall
 RUN mkdir -p /root/.config/coc/extensions
@@ -61,11 +58,11 @@ WORKDIR /root/.config/coc/extensions
 
 # functioning extensions
 RUN yarn add coc-docker coc-ci coc-css coc-explorer coc-json coc-markdownlint coc-pairs coc-python coc-snippets coc-tsserver coc-yaml coc-prettier coc-cmake coc-clangd coc-go
-RUN cp /files/coc.json /root/.config/nvim/coc-settings.json
+add files/coc.json /root/.config/nvim/coc-settings.json
 
 # htop configuration
 workdir /root/.config/htop
-run cp /files/htoprc /root/.config/htop/htoprc
+add files/htoprc /root/.config/htop/htoprc
 workdir /
 
 # install retry
@@ -86,16 +83,13 @@ RUN yrm use taobao
 
 # use tsinghua pip source to speed up pip in China
 WORKDIR /root/.pip
-RUN cp /files/pip.conf ./pip.conf
+add files/pip.conf ./pip.conf
 WORKDIR /
 
 # use aliyun apk source
 WORKDIR /etc/apk
-RUN cp /files/apk-repo ./repositories
+add files/apk-repo ./repositories
 RUN apk update
 WORKDIR /
-
-# clean temporary files
-RUN rm -rf /files
 
 WORKDIR /
