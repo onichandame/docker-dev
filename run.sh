@@ -1,3 +1,4 @@
+#!/bin/sh
 ssh-keygen -A
 /usr/sbin/sshd
-dockerd $@
+dockerd-entrypoint.sh $@

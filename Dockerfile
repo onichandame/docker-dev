@@ -94,5 +94,6 @@ WORKDIR /
 
 # run sshd and dockerd
 add run.sh /run.sh
-run chmod +x /run.sh
-cmd ["/run.sh"]
+run install /run.sh /usr/local/bin
+run rm -f /run.sh
+entrypoint ["/run.sh"]
