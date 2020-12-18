@@ -96,4 +96,4 @@ WORKDIR /
 add run.sh /run.sh
 run install /run.sh /usr/local/bin
 run rm -f /run.sh
-entrypoint ["/run.sh"]
+entrypoint ["run.sh"]
