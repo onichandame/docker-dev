@@ -22,7 +22,7 @@ WORKDIR /
 
 # install basic tools
 RUN apk update
-RUN apk add busybox-extras python3 python3-dev py3-pip libffi-dev openssl-dev tmux mlocate musl-locales cmake clang-extra-tools htop curl openssh openssh-server libpng-dev bash lcms2-dev iptraf-ng proxychains-ng automake autoconf libtool nasm util-linux docs bind-tools
+RUN apk add busybox-extras python3 python3-dev py3-pip libffi-dev openssl-dev tmux mlocate musl-locales cmake clang-extra-tools htop curl openssh openssh-server-pam libpng-dev bash lcms2-dev iptraf-ng proxychains-ng automake autoconf libtool nasm util-linux docs bind-tools
 
 # install configuration files
 ENV ENV /root/.bashrc
@@ -93,6 +93,9 @@ RUN apk update
 WORKDIR /
 
 # run sshd and dockerd
+workdir /etc/ssh
+add files/sshd_config /etc/ssh/sshd_config
+workdir /
 add run.sh /run.sh
 run install /run.sh /usr/local/bin
 run rm -f /run.sh
