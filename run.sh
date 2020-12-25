@@ -11,6 +11,7 @@ then
   exec "$@"
   return
 elif [ $MODE="dind" ]
+then
   dockerd-entrypoint.sh $@
   return
 else
