@@ -6,11 +6,11 @@ function start_sshd(){
   /usr/sbin/sshd
 }
 
-if [ $MODE = "min" ]
+if [ $MODE == "min" ]
 then
   exec "$@"
   return
-elif [ $MODE="dind" ]
+elif [ $MODE == "dind" ]
 then
   dockerd-entrypoint.sh $@
   return
