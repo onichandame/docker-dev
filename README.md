@@ -37,14 +37,8 @@ In case you want to develop in k8s environment, checkout the `kube` folder and m
 
 All configurations are passed in as environmental variables.
 
-|      | value                 | default |
-| ---- | --------------------- | ------- |
-| MODE | `min`\|`dind`\|`full` | full    |
-
-## MODE
-
-there are 3 modes of execution:
-
-- **min**: no daemon is started
-- **dind**: start docker daemon on start
-- **full**: start docker daemon and sshd
+| variable name | description                       |
+| ------------- | --------------------------------- |
+| DIND_DISABLED | do not start dind daemon when set |
+| SSHD_DISABLED | do not start sshd daemon when set |
+| DIND_ARGS     | pass CLI args to dind             |

@@ -6,19 +6,16 @@ function start_sshd(){
   /usr/sbin/sshd
 }
 
-if [ $MODE == "min" ]
+if [ -z "$DIND_DISABLED" ]
 then
-  exec "$@"
-  return
-elif [ $MODE == "dind" ]
-then
-  dockerd-entrypoint.sh $@
-  return
-else
-  start_sshd
-  dockerd-entrypoint.sh $@
-  return
+  dockerd-entrypoint.sh $DIND_ARGS
 fi
+
+if [ -z "$SSHD_DISABLED" ]
+then
+  start_sshd
+fi
+exec "$@"
 
 #env | grep _ >> /etc/security/pam_env.conf
 #pip3 install webssh

@@ -115,7 +115,6 @@ spec:
       containers:
         - name: dev
           image: "registry.cn-hangzhou.aliyuncs.com/onichandame/docker-dev:latest"
-          args: ["--registry-mirror", "https://zpf27k3h.mirror.aliyuncs.com"]
           imagePullPolicy: Always
           securityContext:
             privileged: true
@@ -132,6 +131,8 @@ spec:
               value: "<username>"
             - name: GIT_USER_EMAIL
               value: "<email>"
+            - name: DIND_ARGS
+              value: "--registry-mirror https://zpf27k3h.mirror.aliyuncs.com"
       volumes:
         - name: proxychains
           configMap:
