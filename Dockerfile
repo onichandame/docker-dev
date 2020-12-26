@@ -54,9 +54,9 @@ add files/vimrc /root/.config/nvim/init.vim
 RUN curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 RUN nvim --headless +PlugInstall +qall
 RUN mkdir -p /root/.config/coc/extensions
-WORKDIR /root/.config/coc/extensions
 
 # functioning extensions
+WORKDIR /root/.config/coc/extensions
 RUN yarn add coc-docker coc-ci coc-css coc-explorer coc-json coc-markdownlint coc-pairs coc-python coc-snippets coc-tsserver coc-yaml coc-prettier coc-cmake coc-clangd coc-go
 add files/coc.json /root/.config/nvim/coc-settings.json
 

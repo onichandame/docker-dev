@@ -8,12 +8,12 @@ function start_sshd(){
 
 if [ -z "$DIND_DISABLED" ]
 then
-  dockerd-entrypoint.sh $DIND_ARGS
+  dockerd-entrypoint.sh $DIND_ARGS &
 fi
 
 if [ -z "$SSHD_DISABLED" ]
 then
-  start_sshd
+  start_sshd &
 fi
 exec "$@"
 
