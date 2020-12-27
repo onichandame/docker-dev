@@ -15,7 +15,8 @@ if [ -z "$SSHD_DISABLED" ]
 then
   start_sshd &
 fi
-exec "$@"
+"$@"
+wait
 
 #env | grep _ >> /etc/security/pam_env.conf
 #pip3 install webssh
