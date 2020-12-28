@@ -37,8 +37,13 @@ In case you want to develop in k8s environment, checkout the `kube` folder and m
 
 All configurations are passed in as environmental variables.
 
-| variable name | description                       |
-| ------------- | --------------------------------- |
-| DIND_DISABLED | do not start dind daemon when set |
-| SSHD_DISABLED | do not start sshd daemon when set |
-| DIND_ARGS     | pass CLI args to dind             |
+| variable name | description                                |
+| ------------- | ------------------------------------------ |
+| DIND_DISABLED | do not start dind daemon when set          |
+| SSHD_DISABLED | do not start sshd daemon when set          |
+| DIND_ARGS     | pass CLI args to dind                      |
+| NPM_REGISTRY  | name or url of the npm registry being used |
+| NPM_NAME      | npm registry name                          |
+| NPM_USERNAME  | username of npm user                       |
+| NPM_PASSWORD  | password of npm user                       |
+| NPM_EMAIL     | email of npm user                          |

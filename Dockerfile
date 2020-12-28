@@ -57,7 +57,7 @@ RUN mkdir -p /root/.config/coc/extensions
 
 # functioning extensions
 WORKDIR /root/.config/coc/extensions
-RUN yarn add coc-docker coc-ci coc-css coc-explorer coc-json coc-markdownlint coc-pairs coc-python coc-snippets coc-tsserver coc-yaml coc-prettier coc-cmake coc-clangd coc-go
+RUN yarn add coc-docker coc-ci coc-css coc-explorer coc-json coc-markdownlint coc-pairs coc-python coc-snippets coc-tsserver coc-yaml coc-prettier coc-cmake coc-clangd coc-go coc-sh
 add files/coc.json /root/.config/nvim/coc-settings.json
 
 # htop configuration
@@ -77,9 +77,9 @@ RUN rm -f retry
 RUN go env -w GOPROXY=https://goproxy.cn,direct
 RUN go env -w GO111MODULE=on
 
-# use taobao mirror to bypass GFW. should be the last as image is built by Github workers outside China
+# install npm and yarn registry manager. check run.sh to see how to configure
 RUN yarn global add yrm --prefix /usr/local
-RUN yrm use taobao
+run npm config set always-auth true # needed to make yarn work with private registry
 
 # use tsinghua pip source to speed up pip in China
 WORKDIR /root/.pip
@@ -96,7 +96,6 @@ WORKDIR /
 workdir /etc/ssh
 add files/sshd_config /etc/ssh/sshd_config
 workdir /
-add run.sh /run.sh
-run install /run.sh /usr/local/bin
-run rm -f /run.sh
-entrypoint ["run.sh"]
+add scripts /entrypoint
+run chmod -R +x /entrypoint
+entrypoint ["/entrypoint/run.sh"]
