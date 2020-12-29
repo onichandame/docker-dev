@@ -43,7 +43,6 @@ All configurations are passed in as environmental variables.
 | SSHD_DISABLED | do not start sshd daemon when set          |
 | DIND_ARGS     | pass CLI args to dind                      |
 | NPM_REGISTRY  | name or url of the npm registry being used |
-| NPM_NAME      | npm registry name                          |
 | NPM_USERNAME  | username of npm user                       |
 | NPM_PASSWORD  | password of npm user                       |
 | NPM_EMAIL     | email of npm user                          |

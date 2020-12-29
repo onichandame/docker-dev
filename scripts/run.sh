@@ -15,11 +15,12 @@ function configure_npm(){
   if [ -n "$NPM_REGISTRY" ]
   then
     NPM_NAME=$NPM_REGISTRY
-    if [ $NPM_REGISTRY == http* ]
-    then
-      yrm add custom $NPM_REGISTRY
-      NPM_NAME=custom
-    fi
+    case $NPM_REGISTRY in
+      http* )
+        yrm add custom $NPM_REGISTRY
+        NPM_NAME=custom
+        ;;
+    esac
     yrm use $NPM_NAME
     if [ -n "$NPM_USERNAME" ]
     then
