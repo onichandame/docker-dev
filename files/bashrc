@@ -120,6 +120,7 @@ export LS_COLORS
 # alias vdir='ls --color=auto --format=long'
 alias ll='ls -l'                              # long list
 alias la='ls -A'                              # all but . and ..
+alias mono='npx @kesci/mono-cli'
 # alias l='ls -CF'                              #
 
 # Umask
