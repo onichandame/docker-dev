@@ -57,7 +57,7 @@ RUN mkdir -p /root/.config/coc/extensions
 
 # functioning extensions
 WORKDIR /root/.config/coc/extensions
-RUN yarn add coc-docker coc-ci coc-css coc-explorer coc-json coc-markdownlint coc-pairs coc-python coc-snippets coc-tsserver coc-yaml coc-prettier coc-cmake coc-clangd coc-go coc-sh
+RUN yarn add coc-docker coc-ci coc-css coc-explorer coc-json coc-markdownlint coc-pairs coc-python coc-snippets coc-tsserver coc-yaml coc-prettier coc-cmake coc-clangd coc-go coc-sh coc-git
 add files/coc.json /root/.config/nvim/coc-settings.json
 
 # htop configuration
