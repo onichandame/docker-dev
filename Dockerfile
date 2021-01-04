@@ -75,7 +75,7 @@ RUN yarn add \
       coc-vimlsp \
       coc-git \
       coc-docker \
-      https://github.com/onichandame/coc-sh
+      coc-sh
 add files/coc.json /root/.config/nvim/coc-settings.json
 
 # htop configuration
