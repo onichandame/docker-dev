@@ -15,7 +15,9 @@ Plug 'alvan/vim-closetag'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'mzlogin/vim-markdown-toc'
 Plug 'pantharshit00/vim-prisma'
-Plug 'itchyny/lightline.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 call plug#end()
 
@@ -154,18 +156,12 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 " use `:OR` for organize import of current buffer
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
-" Add status line support, for integration with other plugin, checkout `:h coc-status`
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-set statusline=%{expand('%:.')}
-set statusline=%{GetStatus()}
-
-function! GetStatus()
-  let status=coc#status().get(b:,'coc_current_function','')
-  if status == 'TSC'
-    let status=expand('%:.')
-  endif
-  return status
-endfunction
+" airline config
+let g:airline_powerline_fonts = 1
+let g:airline_symbols= {
+  \'maxlinenr': ''
+  \ }
+let g:airline_theme='solarized_flood'
 
 " Using CocList
 " Show all diagnostics

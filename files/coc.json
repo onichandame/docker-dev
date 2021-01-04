@@ -9,8 +9,11 @@
     "no-duplicate-header": false
   },
   "yaml.format.singleQuote": true,
+  "git.addGBlameToBufferVar": true,
+  "git.addGBlameToVirtualText": true,
   "coc.preferences.formatOnSaveFiletypes": [
     "yaml",
+    "vim",
     "markdown",
     "typescript",
     "typescriptreact",
