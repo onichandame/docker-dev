@@ -39,3 +39,9 @@ formatexpr
 nmap
 CursorHold
 gotos
+plugins
+IDE
+nvim
+#lugin
+IDEs
+VsCode
