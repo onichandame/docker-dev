@@ -41,9 +41,9 @@ nmap <leader>r :AsyncRun<Space>
 nmap <leader>s :AsyncStop<CR>
 nmap <leader>o :copen<Space>
 nmap <leader>qq :ccl<Space>
+nmap <leader>g :Git<Space>
 nmap <silent> w <Plug>(coc-ci-w)
 nmap <silent> b <Plug>(coc-ci-b)
-nmap <leader>g :Git<Space>
 
 " if hidden is not set, TextEdit might fail.
 set hidden
@@ -181,7 +181,7 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
-" legacy from vim
+" legacy from Vim
 set number
 set autoindent
 set cindent
@@ -196,6 +196,7 @@ set mouse=c
 set splitbelow
 set splitright
 set cul cuc
+set spelllang=en,cjk
 hi CursorLine   cterm=NONE ctermbg=darkgrey ctermfg=white guibg=darkred guifg=white
 hi CursorColumn cterm=NONE ctermbg=darkgrey ctermfg=white guibg=darkred guifg=white
 augroup CursorLine
@@ -225,8 +226,6 @@ nmap <Leader>c :set cursorline! cursorcolumn!<CR>
 nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
 nmap <leader>wq :wq<CR>
-map [ <C-U>
-map ] <C-D>
 map <BS> i<BS>
 imap <C-v> <Esc>l<C-v>
 map t y$
@@ -302,7 +301,7 @@ function! Enum2Array()
   exe "normal a\n};\n"
   normal `<
   exe "normal iconst char *[] =\n{\n"
-  exe ":'<,'>normal ==" " try some indentation
+  exe ":'<,'>normal =="
   normal `< " set the cursor at the top
 endfunction
 

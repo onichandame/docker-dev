@@ -51,6 +51,7 @@ RUN apk add neovim
 RUN pip3 install neovim jedi pylama conan --ignore-installed six # conan depends on a different version of six
 RUN mkdir -p /root/.config/nvim
 add files/vimrc /root/.config/nvim/init.vim
+add files/vimdict /root/.config/nvim/spell
 RUN curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 RUN nvim --headless +PlugInstall +qall
 RUN mkdir -p /root/.config/coc/extensions
