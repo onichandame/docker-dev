@@ -8,6 +8,7 @@
     "no-inline-html": false,
     "no-duplicate-header": false
   },
+  "python.linting.pylamaEnabled": true,
   "yaml.format.singleQuote": true,
   "git.addGBlameToBufferVar": true,
   "git.addGBlameToVirtualText": true,
