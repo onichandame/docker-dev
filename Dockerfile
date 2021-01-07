@@ -1,3 +1,4 @@
+# escape=`
 # latest go
 FROM golang:alpine AS go
 
@@ -58,25 +59,25 @@ RUN mkdir -p /root/.config/coc/extensions
 
 # functioning extensions
 WORKDIR /root/.config/coc/extensions
-run timeout 1m nvim --headless +CocInstall\
-\\ coc-ci\
-\\ coc-css\
-\\ coc-explorer\
-\\ coc-json\
-\\ coc-markdownlint\
-\\ coc-pairs\
-\\ coc-python\
-\\ coc-snippets\
-\\ coc-tsserver\
-\\ coc-yaml\
-\\ coc-prettier\
-\\ coc-cmake\
-\\ coc-clangd\
-\\ coc-go\
-\\ coc-vimlsp\
-\\ coc-git\
-\\ coc-docker\
-\\ coc-sh\
+run timeout 1m nvim --headless +CocInstall`
+\ coc-ci`
+\ coc-css`
+\ coc-explorer`
+\ coc-json`
+\ coc-markdownlint`
+\ coc-pairs`
+\ coc-python`
+\ coc-snippets`
+\ coc-tsserver`
+\ coc-yaml`
+\ coc-prettier`
+\ coc-cmake`
+\ coc-clangd`
+\ coc-go`
+\ coc-vimlsp`
+\ coc-git`
+\ coc-docker`
+\ coc-sh`
 ; exit 0
 add files/coc.json /root/.config/nvim/coc-settings.json
 
