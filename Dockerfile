@@ -66,7 +66,7 @@ run timeout 1m nvim --headless +CocInstall`
 \ coc-json`
 \ coc-markdownlint`
 \ coc-pairs`
-\ coc-python`
+\ coc-pyright`
 \ coc-snippets`
 \ coc-tsserver`
 \ coc-yaml`
