@@ -40,7 +40,7 @@ RUN git config --global credential.helper 'cache --timeout=86400'
 
 # install nodejs
 RUN apk add nodejs-current npm yarn
-RUN yarn global add ts-node tsdx @nestjs/cli @nestjs/schematics http-server lerna
+RUN yarn global add ts-node @nestjs/cli @nestjs/schematics http-server lerna
 
 # install chromium for puppeteer
 run apk add --no-cache chromium nss freetype freetype-dev harfbuzz ca-certificates ttf-freefont nodejs yarn
