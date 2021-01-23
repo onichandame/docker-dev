@@ -35,14 +35,15 @@ RUN apk add gcc g++ make socat
 
 # install git
 RUN apk add git
-RUN git config --global credential.helper cache
-RUN git config --global credential.helper 'cache --timeout=86400'
+# do not cache password as dev environment is not safe
+#RUN git config --global credential.helper cache
+#RUN git config --global credential.helper 'cache --timeout=86400'
 
 # install nodejs
 RUN apk add nodejs-current npm yarn
 RUN yarn global add ts-node @nestjs/cli @nestjs/schematics http-server lerna
 
-# install chromium for puppeteer
+# install chromium for puppeteer, which is needed by mermaid
 run apk add --no-cache chromium nss freetype freetype-dev harfbuzz ca-certificates ttf-freefont nodejs yarn
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 env PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
