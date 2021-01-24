@@ -27,40 +27,37 @@ RUN apk add busybox-extras python3 python3-dev py3-pip libffi-dev openssl-dev tm
 
 # install configuration files
 ENV ENV /root/.bashrc
-add files/bashrc /root/.bashrc
-add files/tmux.conf /root/.tmux.conf
+ADD files/bashrc /root/.bashrc
+ADD files/tmux.conf /root/.tmux.conf
 
 # install dev tools
 RUN apk add gcc g++ make socat
 
 # install git
 RUN apk add git
-# do not cache password as dev environment is not safe
-#RUN git config --global credential.helper cache
-#RUN git config --global credential.helper 'cache --timeout=86400'
 
 # install nodejs
 RUN apk add nodejs-current npm yarn
 RUN yarn global add ts-node @nestjs/cli @nestjs/schematics http-server lerna
 
 # install chromium for puppeteer, which is needed by mermaid
-run apk add --no-cache chromium nss freetype freetype-dev harfbuzz ca-certificates ttf-freefont nodejs yarn
+RUN apk add --no-cache chromium nss freetype freetype-dev harfbuzz ca-certificates ttf-freefont nodejs yarn
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
-env PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
 # install neovim
 RUN apk add neovim
 RUN pip3 install neovim jedi pylama conan --ignore-installed six # conan depends on a different version of six
 RUN mkdir -p /root/.config/nvim
-add files/vimrc /root/.config/nvim/init.vim
-add files/vimdict /root/.config/nvim/spell
+ADD files/vimrc /root/.config/nvim/init.vim
+ADD files/vimdict /root/.config/nvim/spell
 RUN curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 RUN nvim --headless +PlugInstall +qall
 RUN mkdir -p /root/.config/coc/extensions
 
 # functioning extensions
 WORKDIR /root/.config/coc/extensions
-run timeout 1m nvim --headless +CocInstall`
+RUN timeout 1m nvim --headless +CocInstall`
 \ coc-ci`
 \ coc-css`
 \ coc-explorer`
@@ -80,12 +77,12 @@ run timeout 1m nvim --headless +CocInstall`
 \ coc-docker`
 \ coc-sh`
 ; exit 0
-add files/coc.json /root/.config/nvim/coc-settings.json
+ADD files/coc.json /root/.config/nvim/coc-settings.json
 
 # htop configuration
-workdir /root/.config/htop
-add files/htoprc /root/.config/htop/htoprc
-workdir /
+WORKDIR /root/.config/htop
+ADD files/htoprc /root/.config/htop/htoprc
+WORKDIR /
 
 # install retry
 WORKDIR /
@@ -101,23 +98,23 @@ RUN go env -w GO111MODULE=on
 
 # install npm and yarn registry manager. check run.sh to see how to configure
 RUN yarn global add yrm --prefix /usr/local
-run npm config set always-auth true # needed to make yarn work with private registry
+RUN npm config set always-auth true # needed to make yarn work with private registry
 
 # use tsinghua pip source to speed up pip in China
 WORKDIR /root/.pip
-add files/pip.conf ./pip.conf
+ADD files/pip.conf ./pip.conf
 WORKDIR /
 
 # use aliyun apk source
 WORKDIR /etc/apk
-add files/apk-repo ./repositories
+ADD files/apk-repo ./repositories
 RUN apk update
 WORKDIR /
 
-# run sshd and dockerd
-workdir /etc/ssh
-add files/sshd_config /etc/ssh/sshd_config
-workdir /
-add scripts /entrypoint
-run chmod -R +x /entrypoint
-entrypoint ["/entrypoint/run.sh"]
+# run services
+WORKDIR /etc/ssh
+ADD files/sshd_config /etc/ssh/sshd_config
+WORKDIR /
+ADD scripts /entrypoint
+RUN chmod -R +x /entrypoint
+ENTRYPOINT ["/entrypoint/run.sh"]

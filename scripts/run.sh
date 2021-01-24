@@ -29,20 +29,44 @@ function configure_npm(){
   fi
 }
 
+function configure_git(){
+  if [ -n "$GIT_USER_NAME" ]
+  then
+    git config --global user.name "$GIT_USER_NAME"
+  fi
+  if [ -n "$GIT_USER_EMAIL" ]
+  then
+    git config --global user.email "$GIT_USER_EMAIL"
+  fi
+}
+
+function start_ipfs(){
+  if [ -n "$IPFS_ENABLED" ]
+  then
+    apk add go-ipfs && ipfs daemon &
+  fi
+}
+
+function start_dockerd(){
+  if [ -n "$DIND_ENABLED" ]
+  then
+    dockerd-entrypoint.sh $DIND_ARGS &
+  fi
+}
+
+function start_sshd(){
+  if [ -n "$SSHD_ENABLED" ]
+  then
+    start_sshd &
+  fi
+}
+
 configure_npm
+configure_git
+start_dockerd
+start_sshd
+start_ipfs
 
-if [ -z "$DIND_DISABLED" ]
-then
-  dockerd-entrypoint.sh $DIND_ARGS &
-fi
-
-if [ -z "$SSHD_DISABLED" ]
-then
-  start_sshd &
-fi
 "$@"
-wait
 
-#env | grep _ >> /etc/security/pam_env.conf
-#pip3 install webssh
-#wssh --port=3000 --origin="https://work.onichandame.com" --delay=6 --xheaders=False
+wait

@@ -114,7 +114,7 @@ spec:
       serviceAccountName: admin-user
       containers:
         - name: dev
-          image: "registry.cn-hangzhou.aliyuncs.com/onichandame/docker-dev:latest"
+          image: "onichandame/docker-dev:latest"
           imagePullPolicy: Always
           securityContext:
             privileged: true
@@ -131,6 +131,12 @@ spec:
               value: "<username>"
             - name: GIT_USER_EMAIL
               value: "<email>"
+            - name: DIND_ENABLED
+              value: true
+            - name: SSHD_ENABLED
+              value: true
+            - name: IPFS_ENABLED
+              value: true
             - name: DIND_ARGS
               value: "--registry-mirror https://zpf27k3h.mirror.aliyuncs.com"
       volumes:
