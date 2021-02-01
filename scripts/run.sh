@@ -43,7 +43,10 @@ function configure_git(){
 function start_ipfs(){
   if [ -n "$IPFS_ENABLED" ]
   then
-    apk add go-ipfs && ipfs init && ipfs daemon &
+    apk add go-ipfs && \
+      ipfs init && \
+      ipfs config --json Swarm.EnableAutoRelay 'true' \
+      ipfs daemon --enable-pubsub-experiment &
   fi
 }
 
