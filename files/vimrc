@@ -36,7 +36,7 @@ tnoremap <Esc> <C-\><C-n>
 " Set a new leader
 let mapleader = ","
 
-let g:asyncrun_open = 8
+let g:asyncrun_open = 5
 nmap <leader>r :AsyncRun<Space>
 nmap <leader>s :AsyncStop<CR>
 nmap <leader>o :copen<Space>
