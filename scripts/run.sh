@@ -43,7 +43,7 @@ function configure_git(){
 function start_ipfs(){
   if [ -n "$IPFS_ENABLED" ]
   then
-    apk add go-ipfs && ipfs daemon &
+    apk add go-ipfs && ipfs init && ipfs daemon &
   fi
 }
 
