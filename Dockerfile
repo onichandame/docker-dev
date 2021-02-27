@@ -3,7 +3,7 @@
 FROM golang:alpine AS go
 
 # glibc
-FROM frolvlad/alpine-glibc:alpine-3.12 AS glibc
+FROM frolvlad/alpine-glibc:alpine-3.13 AS glibc
 WORKDIR /usr
 RUN tar -zcf glibc.tgz glibc-compat
 
@@ -22,6 +22,9 @@ RUN ln -s /usr/glibc-compat/lib64/ld-linux-x86-64.so.2 /lib64/ld-linux-x86-64.so
 WORKDIR /
 
 # install basic tools
+RUN echo "https://dl-cdn.alpinelinux.org/alpine/v3.13/edge/main" >> /etc/apk/repositories
+RUN echo "https://dl-cdn.alpinelinux.org/alpine/v3.13/edge/community" >> /etc/apk/repositories
+RUN echo "https://dl-cdn.alpinelinux.org/alpine/v3.13/edge/testing" >> /etc/apk/repositories
 RUN apk update
 RUN apk add busybox-extras python3 python3-dev py3-pip libffi-dev openssl-dev tmux mlocate musl-locales cmake clang-extra-tools htop curl openssh openssh-server-pam libpng-dev bash lcms2-dev iptraf-ng proxychains-ng automake autoconf libtool nasm docs bind-tools vips-dev
 
