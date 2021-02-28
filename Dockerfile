@@ -22,16 +22,16 @@ RUN ln -s /usr/glibc-compat/lib64/ld-linux-x86-64.so.2 /lib64/ld-linux-x86-64.so
 WORKDIR /
 
 # install basic tools
-RUN echo "https://dl-cdn.alpinelinux.org/alpine/v3.13/edge/main" >> /etc/apk/repositories
-RUN echo "https://dl-cdn.alpinelinux.org/alpine/v3.13/edge/community" >> /etc/apk/repositories
-RUN echo "https://dl-cdn.alpinelinux.org/alpine/v3.13/edge/testing" >> /etc/apk/repositories
+RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
+RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
+RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 RUN apk update
 RUN apk add busybox-extras python3 python3-dev py3-pip libffi-dev openssl-dev tmux mlocate musl-locales cmake clang-extra-tools htop curl openssh openssh-server-pam libpng-dev bash lcms2-dev iptraf-ng proxychains-ng automake autoconf libtool nasm docs bind-tools vips-dev
 
 # install configuration files
 ENV ENV /root/.bashrc
-ADD files/bashrc /root/.bashrc
-ADD files/tmux.conf /root/.tmux.conf
+ADD files/common/bashrc /root/.bashrc
+ADD files/common/tmux.conf /root/.tmux.conf
 
 # install dev tools
 RUN apk add gcc g++ make socat
@@ -52,8 +52,8 @@ ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 RUN apk add neovim
 RUN pip3 install neovim jedi pylama conan --ignore-installed six # conan depends on a different version of six
 RUN mkdir -p /root/.config/nvim
-ADD files/vimrc /root/.config/nvim/init.vim
-ADD files/vimdict /root/.config/nvim/spell
+ADD files/common/vimrc /root/.config/nvim/init.vim
+ADD files/common/vimdict /root/.config/nvim/spell
 RUN curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 RUN nvim --headless +PlugInstall +qall
 RUN mkdir -p /root/.config/coc/extensions
@@ -80,11 +80,11 @@ RUN timeout 1m nvim --headless +CocInstall`
 \ coc-docker`
 \ coc-sh`
 ; exit 0
-ADD files/coc.json /root/.config/nvim/coc-settings.json
+ADD files/common/coc.json /root/.config/nvim/coc-settings.json
 
 # htop configuration
 WORKDIR /root/.config/htop
-ADD files/htoprc /root/.config/htop/htoprc
+ADD files/common/htoprc /root/.config/htop/htoprc
 WORKDIR /
 
 # install retry
@@ -102,17 +102,6 @@ RUN go env -w GO111MODULE=on
 # install npm and yarn registry manager. check run.sh to see how to configure
 RUN yarn global add yrm --prefix /usr/local
 RUN npm config set always-auth true # needed to make yarn work with private registry
-
-# use tsinghua pip source to speed up pip in China
-WORKDIR /root/.pip
-ADD files/pip.conf ./pip.conf
-WORKDIR /
-
-# use aliyun apk source
-WORKDIR /etc/apk
-ADD files/apk-repo ./repositories
-RUN apk update
-WORKDIR /
 
 # run services
 WORKDIR /etc/ssh

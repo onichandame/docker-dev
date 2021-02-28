@@ -1,0 +1,13 @@
+# escape=`
+FROM onichandame/docker-dev:latest
+
+# use tsinghua pip source to speed up pip in China
+WORKDIR /root/.pip
+ADD files/china/pip.conf ./pip.conf
+WORKDIR /
+
+# use aliyun apk source in China
+WORKDIR /etc/apk
+ADD files/china/apk-repo ./repositories
+RUN apk update
+WORKDIR /
