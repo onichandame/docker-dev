@@ -30,7 +30,7 @@ function configure_npm(){
 }
 
 function configure_git(){
-  git config pull.rebase false # merge to solve conflicts
+  git config --global pull.rebase false # merge to solve conflicts
   if [ -n "$GIT_USER_NAME" ]
   then
     git config --global user.name "$GIT_USER_NAME"
