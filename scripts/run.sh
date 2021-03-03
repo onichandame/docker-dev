@@ -46,7 +46,7 @@ function start_ipfs(){
   then
     apk add go-ipfs && \
       ipfs init && \
-      ipfs config --json Swarm.EnableAutoRelay 'true' \
+      ipfs config --json Swarm.EnableAutoRelay 'true' && \
       ipfs daemon --enable-pubsub-experiment &
   fi
 }
