@@ -41,6 +41,7 @@ All configurations are passed in as environmental variables.
 | ------------- | ------------------------------------------ |
 | DIND_ENABLED  | start dind daemon when set                 |
 | SSHD_ENABLED  | start sshd daemon when set                 |
+| SSH_KEYS      | ssh keys separated by semicolon            |
 | IPFS_ENABLED  | start ipfs node when set                   |
 | DIND_ARGS     | pass CLI args to dind                      |
 | NPM_REGISTRY  | name or url of the npm registry being used |

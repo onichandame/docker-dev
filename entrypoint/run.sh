@@ -1,8 +1,14 @@
 #!/bin/sh
 
 function start_sshd(){
-  chmod -R 0700 /root/.ssh
+  CONFIG_DIR=$HOME/.ssh
+  mkdir -p $CONFIG_DIR
+  for i in $(echo $SSH_KEYS | tr ";" "\n")
+  do
+    echo $i >> $CONFIG_DIR/authorized_keys
+  done
   ssh-keygen -A
+  chmod -R 0700 /root/.ssh
   /usr/sbin/sshd
 }
 

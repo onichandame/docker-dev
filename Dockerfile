@@ -107,6 +107,6 @@ RUN npm config set always-auth true # needed to make yarn work with private regi
 WORKDIR /etc/ssh
 ADD files/common/sshd_config /etc/ssh/sshd_config
 WORKDIR /
-ADD scripts /entrypoint
+ADD entrypoint /entrypoint
 RUN chmod -R +x /entrypoint
 ENTRYPOINT ["/entrypoint/run.sh"]
