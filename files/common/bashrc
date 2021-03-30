@@ -126,6 +126,7 @@ alias expo='npx expo-cli'
 alias psql='docker run --network host --rm -it postgres:alpine psql'
 alias mongo='docker run --network host --rm -it mongo mongo'
 alias kubectl='docker run --network host -it --rm -v $HOME/.kube:/root/.kube onichandame/docker-kubectl:latest'
+alias nest='npx @nestjs/cli'
 # alias l='ls -CF'                              #
 
 # Umask
