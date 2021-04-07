@@ -75,6 +75,7 @@ RUN timeout 1m nvim --headless +CocInstall`
 \ coc-cmake`
 \ coc-clangd`
 \ coc-go`
+\ @onichandame/coc-proto3`
 \ coc-vimlsp`
 \ coc-git`
 \ coc-docker`
