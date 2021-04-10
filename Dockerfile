@@ -71,6 +71,8 @@ RUN timeout 1m nvim --headless +CocInstall`
 \ coc-snippets`
 \ coc-tsserver`
 \ coc-yaml`
+; exit 0
+RUN timeout 1m nvim --headless +CocInstall`
 \ coc-prettier`
 \ coc-cmake`
 \ coc-clangd`
