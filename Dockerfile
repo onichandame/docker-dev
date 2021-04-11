@@ -51,7 +51,7 @@ ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 # install neovim
 RUN apk add neovim
 run pip3 install --upgrade setuptools
-RUN pip3 install jedi pylama conan --ignore-installed six # conan depends on a different version of six
+RUN pip3 install neovim jedi pylama conan --ignore-installed six # conan depends on a different version of six
 RUN mkdir -p /root/.config/nvim
 ADD files/common/vimrc /root/.config/nvim/init.vim
 ADD files/common/vimdict /root/.config/nvim/spell
