@@ -22,9 +22,9 @@ RUN ln -s /usr/glibc-compat/lib64/ld-linux-x86-64.so.2 /lib64/ld-linux-x86-64.so
 WORKDIR /
 
 # install basic tools
-RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
-RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
-RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+#RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
+#RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
+#RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 RUN apk update
 RUN apk add busybox-extras python3 python3-dev py3-pip libffi-dev openssl-dev tmux mlocate musl-locales cmake clang-extra-tools htop curl openssh openssh-server-pam libpng-dev bash lcms2-dev iptraf-ng proxychains-ng automake autoconf libtool nasm docs bind-tools vips-dev
 
@@ -51,7 +51,7 @@ ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 # install neovim
 RUN apk add neovim
 run pip3 install --upgrade setuptools
-RUN pip3 install neovim jedi pylama conan --ignore-installed six # conan depends on a different version of six
+RUN pip3 install jedi pylama conan --ignore-installed six # conan depends on a different version of six
 RUN mkdir -p /root/.config/nvim
 ADD files/common/vimrc /root/.config/nvim/init.vim
 ADD files/common/vimdict /root/.config/nvim/spell
