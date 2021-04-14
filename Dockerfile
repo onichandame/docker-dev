@@ -41,7 +41,7 @@ RUN apk add git
 
 # install nodejs
 RUN apk add nodejs-current npm yarn
-RUN yarn global add ts-node @nestjs/cli @nestjs/schematics http-server lerna
+RUN yarn global add ts-node @nestjs/cli @nestjs/schematics http-server
 
 # install chromium for puppeteer, which is needed by mermaid
 RUN apk add --no-cache chromium nss freetype freetype-dev harfbuzz ca-certificates ttf-freefont nodejs yarn

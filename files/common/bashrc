@@ -128,6 +128,7 @@ alias mongo='docker run --network host --rm -it mongo mongo'
 alias redis-cli='docker run --network host --rm -it redis:alpine redis-cli'
 alias kubectl='docker run --network host -it --rm -v $HOME/.kube:/root/.kube onichandame/docker-kubectl:latest'
 alias nest='npx @nestjs/cli'
+alias lerna='npx lerna'
 # alias l='ls -CF'                              #
 
 # Umask
