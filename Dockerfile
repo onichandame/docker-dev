@@ -99,10 +99,6 @@ RUN rm -f retry.tgz
 RUN install retry /usr/bin
 RUN rm -f retry
 
-# go proxy
-RUN go env -w GOPROXY=https://goproxy.cn,direct
-RUN go env -w GO111MODULE=on
-
 # install npm and yarn registry manager. check run.sh to see how to configure
 RUN yarn global add yrm --prefix /usr/local
 RUN npm config set always-auth true # needed to make yarn work with private registry

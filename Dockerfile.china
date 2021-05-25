@@ -1,6 +1,10 @@
 # escape=`
 FROM onichandame/docker-dev:latest
 
+# go proxy
+RUN go env -w GOPROXY=https://goproxy.cn,direct
+RUN go env -w GO111MODULE=on
+
 # use tsinghua pip source to speed up pip in China
 WORKDIR /root/.pip
 ADD files/china/pip.conf ./pip.conf
