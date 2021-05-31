@@ -123,6 +123,7 @@ alias la='ls -A'                              # all but . and ..
 alias mono='npx @kesci/mono-cli'
 alias tsdx='npx tsdx'
 alias expo='npx expo-cli'
+alias tsc='npx typescript'
 alias psql='docker run --network host --rm -it postgres:alpine psql'
 alias mongo='docker run --network host --rm -it mongo mongo'
 alias redis-cli='docker run --network host --rm -it redis:alpine redis-cli'
