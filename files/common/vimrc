@@ -111,7 +111,7 @@ function! s:show_documentation()
 endfunction
 
 " fix markdown linting errors on save
-autocmd BufWritePre *.md :CocCommand markdownlint.fixAll
+"autocmd BufWritePre *.md :CocCommand markdownlint.fixAll
 
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')

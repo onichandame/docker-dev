@@ -12,7 +12,6 @@
   "yaml.format.singleQuote": true,
   "git.addGBlameToBufferVar": true,
   "git.addGBlameToVirtualText": true,
-  "markdownlint.onSave":true,
   "coc.preferences.formatOnSaveFiletypes": [
     "yaml",
     "vim",
@@ -22,6 +21,7 @@
     "javascript",
     "json",
     "jsonc",
+    "markdown",
     "go",
     "prisma"
   ]
